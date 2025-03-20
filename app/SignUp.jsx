@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, Stat
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
 
-function SignIn({navigation}) {
+function SignIn() {
   const router = useRouter();
 
 
@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#222222',
     width: '100%',
-    height: '100%',
   },
   welcome_text_wrapper: {
     width: '100%',
