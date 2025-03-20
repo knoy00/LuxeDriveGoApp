@@ -9,12 +9,52 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
         <TouchableOpacity style={styles.icon_wrapper} onPress={() => router.back('Profile')}>
-            <Icon name="angle-left" color="#efefef" size={30} />
+            <Icon name="angle-left" color="#efefef" size={25} />
         </TouchableOpacity>
 
         <View style={styles.header_wrapper}>
             <Text style={styles.header_text}>Settings</Text>
         </View>
+
+        <TouchableOpacity style={styles.option_wrapper}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="sliders" color="#222" size={21} />
+                <Text style={styles.option_text}>General Settings</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.option_wrapper}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="car" color="#222" size={21} />
+                <Text style={styles.option_text}>Ride Preferences</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.option_wrapper}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="bell" color="#222" size={21} />
+                <Text style={styles.option_text}>Notifications and Communication</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.option_wrapper}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="credit-card" color="#222" size={21} />
+                <Text style={styles.option_text}>Payment and Billings</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.option_wrapper}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="question-circle" color="#222" size={25} />
+                <Text style={styles.option_text}>Support and Help</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </TouchableOpacity>
     </View>
   )
 }
@@ -58,4 +98,24 @@ const styles = StyleSheet.create({
         top: 130,
         letterSpacing: .02
     },
+    option_wrapper: {
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 20,
+        marginTop: 10,
+    },
+    option_name_wrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10
+    },
+    option_text: {
+        fontSize: 18,
+        fontWeight: 400,
+        color: '#333',
+        letterSpacing: .02,
+        marginLeft: 10
+    }
 })
