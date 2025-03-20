@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, StatusBar  } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useRouter} from 'expo-router';
 
 const LoginSecurity = () => {
+    const router = useRouter();
   return (
     <View style={styles.container}>
-        <TouchableOpacity style={styles.icon_wrapper} onPress={() => router.back('Profile')}>
+        <TouchableOpacity style={styles.icon_wrapper} onPress={() => router.back()}>
             <Icon name="angle-left" color="#efefef" size={30} />
         </TouchableOpacity>
 
@@ -22,13 +23,13 @@ const LoginSecurity = () => {
             <Icon name="angle-right" color="#222" size={25} />
         </TouchableOpacity>
 
-        <View style={{width: '100%', marginTop: 20, padding: 20}}>
+        <ScrollView style={{width: '100%', marginTop: 0, padding: 20, flex: 1}} contentContainerStyle={{flexGrow: 1, paddingVertical: 20}}>
             <Text style={{fontSize: 25, fontWeight: 600, color: '#222'}}>Passkeys</Text>
             <Text style={{fontSize: 18, fontWeight: 400, color: '#F36621', marginTop: 20}}>Set up your Passkeys</Text>
 
             <Text style={{fontSize: 16, fontWeight: 400, color: '#777', marginTop: 10, paddingVertical: 20}}>Passkeys are a safer and easier way to sign in to your account without using a password. They use your device’s fingerprint, face recognition, or PIN to verify your identity. Unlike passwords, passkeys can't be stolen in phishing attacks, making your account more secure. With passkeys, logging in is fast, secure, and hassle-free! 🚀</Text>
 
-            <Text style={{fontSize: 25, fontWeight: 600, color: '#222', marginTop: 20}}>Other login options</Text>
+            <Text style={{fontSize: 25, fontWeight: 600, color: '#222', marginTop: 10}}>Other login options</Text>
 
             <View style={{marginTop: 10}}>
                 <TouchableOpacity style={styles.login_option_wrapper}>
@@ -46,7 +47,7 @@ const LoginSecurity = () => {
                     <Text style={{fontSize: 18, fontWeight: 400, color: '#222', marginLeft: 10}}>Sign in with Facebook</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     </View>
   )
 }
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 10,
-        marginTop: 20,
+        marginTop: 10,
         borderBottomColor: '#ededed',
         borderBottomWidth: 1,
         padding: 10,

@@ -43,18 +43,18 @@ const Profile = () => {
                 
             </Pressable>
 
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('DataPrivacy')}>
                 <Icon name="lock" color="#888" size={23} />
-                <Text style={styles.btn_text}>Privacy</Text>
+                <Text style={styles.btn_text}>Data and Privacy</Text>
                 
             </Pressable>
 
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddAddress')}>
                 <Icon name="home" color="#888" size={23} />
                 <Text style={styles.btn_text}>Add Home Address</Text>
                 
             </Pressable>
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} >
                 <Icon name="building" color="#888" size={23} />
                 <Text style={styles.btn_text}>Add Workplace Address</Text>
                 

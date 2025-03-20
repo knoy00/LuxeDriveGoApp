@@ -14,6 +14,8 @@ export default function RootLayout() {
         <Stack.Screen name="ProfileInfoScreen" options={{ headerShown: false }} />
         <Stack.Screen name="SettingsScreen" options={{ headerShown: false }} />
         <Stack.Screen name="LoginSecurity" options={{ headerShown: false }} />
+        <Stack.Screen name="DataPrivacy" options={{ headerShown: false }} />
+        <Stack.Screen name="AddAddress" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );
