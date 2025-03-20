@@ -72,9 +72,7 @@ const _layout = () => {
                     </View>
                 )
             }}
-        />
-
-        
+        />   
     </Tabs>
   )
 }

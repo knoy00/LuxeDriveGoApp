@@ -31,7 +31,7 @@ const Profile = () => {
                 
             </Pressable>
 
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('SettingsScreen')}>
                 <Icon name="cog" color="#888" size={23} />
                 <Text style={styles.btn_text}>Settings</Text>
                 

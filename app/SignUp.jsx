@@ -95,14 +95,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#222222',
-    width: '100%',
   },
   welcome_text_wrapper: {
     width: '100%',
     paddingHorizontal: 20
   },
   welcome_text: {
-    color: 'white',
+    color: '#fff',
     fontSize: 40,
     fontWeight: '600',
     marginTop: 120,
