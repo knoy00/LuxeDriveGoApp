@@ -11,7 +11,7 @@ function SplashScreen({}) {
     useEffect(() => {
         setTimeout(() => {
             router.replace('/AuthScreen')
-        }, 3000)
+        }, 500)
     }, [])
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
