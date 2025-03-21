@@ -16,15 +16,15 @@ const ProfileInfoScreen = () => {
         </View>
 
         <View style={styles.info_wrapper}>
-            <Icon name="id-card" color="#888" size={25} />
+            <Icon name="id-card" color="#888" size={20} />
             <Text style={styles.info_text}>Kelvin Osei Yeboah</Text>
         </View>
         <View style={styles.info_wrapper}>
-            <Icon name="phone" color="#888" size={30} />
+            <Icon name="phone" color="#888" size={20} />
             <Text style={styles.info_text}>(233) 55 55 55 55</Text>
         </View>
         <View style={styles.info_wrapper}>
-            <Icon name="envelope" color="#888" size={25} />
+            <Icon name="envelope" color="#888" size={20} />
             <Text style={styles.info_text}>kelvinyeboah@gmail.com</Text>
         </View>
         {/* <View style={styles.info_wrapper}>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'transparent',
-        width: '100%',
+        width: '95%',
         gap: 10,
         marginTop: 20,
         padding: 15,
@@ -92,5 +92,6 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         letterSpacing: .02,
         paddingHorizontal: 5,
+        fontWeight: 600
     }
 })

@@ -1,6 +1,8 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from 'react-native-gesture-handler'; 
 import { SafeAreaView } from "react-native";
+import 'react-native-reanimated';
+
 
 export default function RootLayout() {
   return (
@@ -16,6 +18,11 @@ export default function RootLayout() {
         <Stack.Screen name="LoginSecurity" options={{ headerShown: false }} />
         <Stack.Screen name="DataPrivacy" options={{ headerShown: false }} />
         <Stack.Screen name="AddAddress" options={{ headerShown: false }} />
+        <Stack.Screen name="AddHome" options={{ headerShown: false }} />
+        <Stack.Screen name="AddWork" options={{ headerShown: false }} />
+        <Stack.Screen name="AddLocation" options={{ headerShown: false }} />
+        <Stack.Screen name="Logout" options={{ headerShown: false }} />
+        <Stack.Screen name="Button" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );

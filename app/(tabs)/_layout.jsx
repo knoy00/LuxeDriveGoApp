@@ -41,6 +41,23 @@ const _layout = () => {
         />
 
         <Tabs.Screen 
+            name="Explore"  
+            options={{
+                title: 'Explore',
+                tabBarLabelStyle: {fontWeight: 'bold', fontSize: 10},  
+                tabBarActiveTintColor: '#222',
+                tabBarInactiveTintColor: '#bbbbbb',
+                headerShown: false,
+                tabBarIcon:({focused}) => (
+                    <View className='w-[50] items-center justify-center' >
+                        <Icon name="compass" size={25} color={focused ? '#222' : '#bbbbbb'}/>
+                        {/* <Text className='font-bold'>Home</Text> */}
+                    </View>
+                )
+            }}
+        />
+
+        <Tabs.Screen 
             name="Profile"  
             options={{
                 title: 'Profile',
@@ -57,22 +74,7 @@ const _layout = () => {
             }}
         />
 
-        <Tabs.Screen 
-            name="test"  
-            options={{
-                title: 'Test',
-                tabBarLabelStyle: {fontWeight: 'bold', fontSize: 10},  
-                tabBarActiveTintColor: '#222',
-                tabBarInactiveTintColor: '#bbbbbb',
-                headerShown: false,
-                tabBarIcon:({focused}) => (
-                    <View className='w-[50] items-center justify-center' >
-                        <Icon name="user" size={25} color={focused ? '#222' : '#bbbbbb'}/>
-                        {/* <Text className='font-bold'>Home</Text> */}
-                    </View>
-                )
-            }}
-        />   
+           
     </Tabs>
   )
 }

@@ -49,26 +49,30 @@ const Profile = () => {
                 
             </Pressable>
 
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddAddress')}>
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddHome')}>
                 <Icon name="home" color="#888" size={23} />
                 <Text style={styles.btn_text}>Add Home Address</Text>
                 
             </Pressable>
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} >
+
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddWork')}>
                 <Icon name="building" color="#888" size={23} />
                 <Text style={styles.btn_text}>Add Workplace Address</Text>
                 
             </Pressable>
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddLocation')}>
                 <Icon name="plus" color="#888" size={23} />
                 <Text style={styles.btn_text}>Add Location</Text>
                 
             </Pressable>
-            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]}>
+
+            <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('Logout')}>
                 <Icon name="sign-out" color="#888" size={23} />
                 <Text style={styles.btn_text}>Logout</Text>
                 
             </Pressable>
+
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#ccc' : '#f5f5f5'}]}>
                 <Icon name="trash" color="#888" size={23} bold/>
                 <Text style={styles.btn_text}>Delete Account</Text>
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '100%',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 0,
         paddingVertical: 20,
         flexDirection: 'row',
         gap: 10,
