@@ -74,61 +74,57 @@ const Explore = () => {
           
         </MotiView>
 
-        
+        <Text style={styles.body_header_text}>New App Features</Text>
 
-        <View style={styles.events_section}>
-          <Text style={styles.body_header_text}>New App Features</Text>
-
-          <View style={styles.card_wrapper}>
+        <View style={styles.new_section}>
+          <View style={[styles.card_wrapper, {backgroundColor: '#18DA8A'}]}>
             <View style={styles.icon_wrapper}> 
               <Icon name='money' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
               <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
-              <Icon name="angle-right" color="#eee" size={25} />
+              <Icon name="angle-right" color="#eee" size={22} />
             </View>
           </View>
 
 
-          <View style={styles.card_wrapper}>
+          <View style={[styles.card_wrapper, {backgroundColor: '#3A8DE1'}]}>
             <View style={styles.icon_wrapper}> 
               <Icon name='money' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
               <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
-              <Icon name="angle-right" color="#eee" size={25} />
+              <Icon name="angle-right" color="#eee" size={22} />
             </View>
           </View>
 
 
-          <View style={styles.card_wrapper}>
+          <View style={[styles.card_wrapper, {backgroundColor: '#C7D03C'}]}>
             <View style={styles.icon_wrapper}> 
               <Icon name='money' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
               <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
-              <Icon name="angle-right" color="#eee" size={25} />
+              <Icon name="angle-right" color="#eee" size={22} />
             </View>
           </View>
 
-          
-          <View style={styles.card_wrapper}>
+
+          <View style={[styles.card_wrapper, {backgroundColor: '#E31D36'}]}>
             <View style={styles.icon_wrapper}> 
               <Icon name='money' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
               <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
-              <Icon name="angle-right" color="#eee" size={25} />
+              <Icon name="angle-right" color="#eee" size={22} />
             </View>
           </View>
           
         </View>
-
-
 
       </ScrollView>
 
@@ -166,14 +162,16 @@ const styles = StyleSheet.create({
   body_header_text: {
     fontSize: 22,
     fontWeight: 600,
-    color: '#222',
+    color: '#444',
     marginTop: 20
+
   },
   sub_header_text: {
     fontSize: 16,
     fontWeight: 400,
-    color: '#333',
+    color: '#888',
     marginTop: 5
+
   },
   image_wrapper: {
     width: '100%',
@@ -182,6 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     resizeMode: 'cover',
     overflow: 'hidden'
+
   },
   events_section: {
     marginTop: 10,
@@ -192,19 +191,30 @@ const styles = StyleSheet.create({
     width: '100%',
 
   },
+  new_section: {
+    marginTop: 10,
+    marginBottom: 20,
+    paddingTop: 0,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    flexWrap: 'wrap',
+  },
   card_wrapper: {
     backgroundColor: '#41D188',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     marginTop: 10,
-    height: '35%',
-    width: '50%'
+    width: '48%',
+    aspectRatio: 1
   },
   icon_wrapper: {
     width: 40,
     height: 40,
     backgroundColor: '#ffffff50',
-    borderRadius: 10,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10
