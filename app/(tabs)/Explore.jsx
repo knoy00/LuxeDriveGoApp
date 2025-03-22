@@ -1,11 +1,37 @@
 import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { MotiView } from 'moti';
 import Button from '../Button'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Haptics from 'expo-haptics';
+
+
+import ModalSheet from '../ModalSheet'
 
 
 const Explore = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activeCard, setActiveCard] = useState(null);
+
+  const [firstCard, setFirstCard] = useState(false);
+  const [secondCard, setSecondCard] = useState(false);
+  const [thirdCard, setThirdCard] = useState(false);
+  const [fourthCard, setFourthCard] = useState(false);
+
+  const toggleModal = (card) => {
+    if (modalVisible && card === activeCard) {
+      setModalVisible(false);
+      return;
+    }
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
+    setActiveCard(card);
+    setModalVisible(true);
+};
+
+
   return (
     <View style={styles.container}>
       <View
@@ -64,7 +90,7 @@ const Explore = () => {
         >
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
             <Text style={styles.body_header_text}>Eco-friendly Rides </Text>
-            <Text style={{fontSize: 12, fontWeight: 600, color: '#fff', marginTop: 20, backgroundColor: '#ff5000', padding: 5, borderRadius: 5}}>New</Text>
+            <Text style={{fontSize: 12, fontWeight: 600, color: '#fff', marginTop: 20, backgroundColor: '#f50000', padding: 4, borderRadius: 5}}>New</Text>
           </View>
   
           <Image style={styles.image_wrapper} source={require('../../assets/images/explore/man_2.jpeg')} />
@@ -76,8 +102,8 @@ const Explore = () => {
 
         <Text style={styles.body_header_text}>New App Features</Text>
 
-        <View style={styles.new_section}>
-          <View style={[styles.card_wrapper, {backgroundColor: '#18DA8A'}]}>
+        <View style={styles.new_section} >
+          <Pressable style={[styles.card_wrapper, {backgroundColor: '#18DA8A'}]} onPress={() => toggleModal('firstCard')}>
             <View style={styles.icon_wrapper}> 
               <Icon name='money' size={20} color='#fff'/>
             </View>
@@ -86,47 +112,75 @@ const Explore = () => {
               <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
               <Icon name="angle-right" color="#eee" size={22} />
             </View>
-          </View>
+          </Pressable>
 
 
-          <View style={[styles.card_wrapper, {backgroundColor: '#3A8DE1'}]}>
+          <Pressable style={[styles.card_wrapper, {backgroundColor: '#3A8DE1'}]} onPress={() => toggleModal('secondCard')}>
             <View style={styles.icon_wrapper}> 
-              <Icon name='money' size={20} color='#fff'/>
+              <Icon name='lock' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
-              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
+              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>Safety PIN</Text>
               <Icon name="angle-right" color="#eee" size={22} />
             </View>
-          </View>
+          </Pressable>
 
 
-          <View style={[styles.card_wrapper, {backgroundColor: '#C7D03C'}]}>
+          <Pressable style={[styles.card_wrapper, {backgroundColor: '#C7D03C'}]} onPress={() => toggleModal('thirdCard')}>
             <View style={styles.icon_wrapper}> 
-              <Icon name='money' size={20} color='#fff'/>
+              <Icon name='calendar' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
-              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
+              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>Ride Scheduling</Text>
               <Icon name="angle-right" color="#eee" size={22} />
             </View>
-          </View>
+          </Pressable>
 
 
-          <View style={[styles.card_wrapper, {backgroundColor: '#E31D36'}]}>
+          <Pressable style={[styles.card_wrapper, {backgroundColor: '#E31D36'}]} onPress={() => toggleModal('fourthCard')}>
             <View style={styles.icon_wrapper}> 
-              <Icon name='money' size={20} color='#fff'/>
+              <Icon name='truck' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
-              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxyCoin</Text>
+              <Text style={{fontSize: 16, fontWeight: 500, color: '#fff'}}>LuxeDrop</Text>
               <Icon name="angle-right" color="#eee" size={22} />
             </View>
-          </View>
-          
+          </Pressable>
         </View>
 
+
+        {modalVisible && (
+          <ModalSheet 
+            isVisible={modalVisible} 
+            setIsVisible={setModalVisible}
+            Feature_name={
+              activeCard === 'firstCard' ? "LuxyCoin" :
+              activeCard === 'secondCard' ? "Safety PIN" :
+              activeCard === 'thirdCard' ? "Ride Scheduling" :
+              activeCard === 'fourthCard' ? "LuxeDrop" : ""
+            }
+            Feature_content={
+              activeCard === 'firstCard' ? "Introducing LuxyCoin! 🚀 Every time you ride with LuxeDriveGo, you earn LuxyCoins—our exclusive rewards system. The more you ride, the more you earn! Redeem LuxyCoins for discounts, free rides, and special perks. Start earning today!" :
+              activeCard === 'secondCard' ? "For added security, every ride now comes with a unique 4-digit Safety PIN. Before your trip begins, share this PIN with your driver to ensure you're in the right ride. This helps prevent ride mix-ups and enhances passenger safety." :
+              activeCard === 'thirdCard' ? "Schedule your rides with LuxeDriveGo! 🚖 You can now book rides from wherever you are to any place you want, anytime you want. Schedule your rides and get rewarded for your efforts!" :
+              activeCard === 'fourthCard' ? "Need to send a package quickly? LuxeDrop lets you book a driver to deliver your parcels, documents, or small items securely and on time. Whether it's a last-minute delivery or a planned drop-off, LuxeDrop ensures fast and reliable service." : ""
+            }
+            icon_name={
+              activeCard === 'firstCard' ? "currency-usd" :
+              activeCard === 'secondCard' ? "lock" :
+              activeCard === 'thirdCard' ? "calendar" :
+              activeCard === 'fourthCard' ? "package-variant" : ""
+            }
+            button_text={"How it works"}
+          />
+        )}
+
+
       </ScrollView>
+
 
     </View>
   )
@@ -204,10 +258,10 @@ const styles = StyleSheet.create({
   },
   card_wrapper: {
     backgroundColor: '#41D188',
-    padding: 10,
-    borderRadius: 20,
+    padding: 15,
+    borderRadius: 10,
     marginTop: 10,
-    width: '48%',
+    width: '49%',
     aspectRatio: 1
   },
   icon_wrapper: {
