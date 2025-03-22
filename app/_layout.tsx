@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from 'react-native-gesture-handler'; 
 import { SafeAreaView } from "react-native";
+import { useState } from "react";
 import 'react-native-reanimated';
 
 

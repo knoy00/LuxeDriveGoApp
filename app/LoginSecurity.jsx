@@ -1,9 +1,18 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, StatusBar  } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, StatusBar, Pressable  } from 'react-native'
+import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useRouter} from 'expo-router';
+import * as Haptics from 'expo-haptics';
+
 
 const LoginSecurity = () => {
+
+    const [isEnable, setIsEnable] = useState(false);
+
+    const toggleSwitch = () => {
+        setIsEnable(!isEnable);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
     const router = useRouter();
   return (
     <View style={styles.container}>
@@ -22,6 +31,16 @@ const LoginSecurity = () => {
             </View>
             <Icon name="angle-right" color="#222" size={25} />
         </TouchableOpacity>
+
+        <View style={[styles.option_wrapper]} >
+            <View style={styles.option_name_wrapper}>
+                <Icon name="user-circle" color="#222" size={21} />
+                <Text style={styles.option_text}>Enable Face ID</Text>
+            </View>
+            <Pressable style={[styles.radio_btn_wrapper, isEnable ? {backgroundColor: '#2EA747', borderColor: '#2EA747' } : {}]} onPress={toggleSwitch}>
+                <View style={[styles.radio_btn, isEnable ? {transform: [{translateX: 20}]} : {}]}></View>
+            </Pressable>
+        </View>
 
         <ScrollView style={{width: '100%', marginTop: 0, padding: 20, flex: 1}} contentContainerStyle={{flexGrow: 1, paddingVertical: 20}}>
             <Text style={{fontSize: 25, fontWeight: 600, color: '#222'}}>Passkeys</Text>
@@ -126,5 +145,27 @@ const styles = StyleSheet.create({
         color: '#333',
         letterSpacing: .02,
         marginLeft: 10
+    },
+    radio_btn_wrapper: {
+        justifyContent: 'center',
+        backgroundColor: '#ccc',
+        width: 45,
+        height: 26,
+        borderRadius: 50,
+        paddingVertical: 0,
+        borderWidth: 1,
+        borderColor: '#ccc'
+    },
+    radio_btn: {
+        width: 23,
+        height: 23,
+        borderRadius: 15,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        
     }
 })

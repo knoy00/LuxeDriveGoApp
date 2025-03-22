@@ -14,11 +14,6 @@ const Explore = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
 
-  const [firstCard, setFirstCard] = useState(false);
-  const [secondCard, setSecondCard] = useState(false);
-  const [thirdCard, setThirdCard] = useState(false);
-  const [fourthCard, setFourthCard] = useState(false);
-
   const toggleModal = (card) => {
     if (modalVisible && card === activeCard) {
       setModalVisible(false);
@@ -105,7 +100,7 @@ const Explore = () => {
         <View style={styles.new_section} >
           <Pressable style={[styles.card_wrapper, {backgroundColor: '#18DA8A'}]} onPress={() => toggleModal('firstCard')}>
             <View style={styles.icon_wrapper}> 
-              <Icon name='money' size={20} color='#fff'/>
+              <Icon name='dollar' size={20} color='#fff'/>
             </View>
             
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginTop: 60}}>
@@ -174,7 +169,12 @@ const Explore = () => {
               activeCard === 'thirdCard' ? "calendar" :
               activeCard === 'fourthCard' ? "package-variant" : ""
             }
-            button_text={"How it works"}
+            button_text={
+              activeCard === 'firstCard' ? "How it works" :
+              activeCard === 'secondCard' ? "Learn More" :
+              activeCard === 'thirdCard' ? "Learn More" :
+              activeCard === 'fourthCard' ? "Learn More" : ""
+            }
           />
         )}
 

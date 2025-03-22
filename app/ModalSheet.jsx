@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, Pressable} from "react-native";
 import * as Haptics from 'expo-haptics';
-
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { MotiView } from 'moti';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -18,7 +17,11 @@ const Trips = ({Feature_name, Feature_content, icon_name, button_text, isVisible
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
       >
-        <View style={styles.overlay}>
+        <MotiView
+         from={{ opacity: 0, translateY: 50}}
+         animate={{ opacity: 1, translateY: 0}}
+         transition={{ type: 'timing', duration: 500 }}
+         style={styles.overlay}>
           <View style={styles.bottomSheet}>
 
             <Pressable style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#efefef', padding: 0, width: 30, height: 30, borderRadius: 30, marginRight: 0, position: 'absolute', top: 15, right: 20}} onPress={() => {setIsVisible(false); Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)}}
@@ -42,7 +45,8 @@ const Trips = ({Feature_name, Feature_content, icon_name, button_text, isVisible
             </TouchableOpacity>
             
           </View>
-        </View>
+        </MotiView
+        >
       </Modal>
     </View>
   );
@@ -50,7 +54,7 @@ const Trips = ({Feature_name, Feature_content, icon_name, button_text, isVisible
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#111', zIndex: 9999 },
-  button: { backgroundColor: "#111", padding: 10, paddingVertical: 15, borderRadius: 10, marginBottom: 30, width: '100%' },
+  button: { backgroundColor: "#111", padding: 10, paddingVertical: 20, borderRadius: 10, marginBottom: 30, width: '100%' },
   buttonText: { color: "#fff", fontSize: 16, textAlign: 'center' },
   overlay: { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.5)" },
   bottomSheet: {
