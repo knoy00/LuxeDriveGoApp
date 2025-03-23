@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image, Pressable, StatusBar } from 'react-native'
 import React, {useState} from 'react'
 import { MotiView } from 'moti';
 import Button from '../Button'
@@ -29,6 +29,7 @@ const Explore = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <View
         style={styles.header_wrapper}
       >

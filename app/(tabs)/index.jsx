@@ -122,7 +122,7 @@ function Index() {
           style={styles.map}
           customMapStyle={customMapStyle}
           showsUserLocation={true}
-          followsUserLocation={true}
+          followsUserLocation={false}
           initialRegion={region}
         />
       )}
@@ -150,7 +150,7 @@ function Index() {
             style={[styles.input_text, { borderColor: isFocused ? '#222' : '#efefef', marginTop: isFocused ? 20 : 0 }]}
             placeholder="Where to?"
             placeholderTextColor={'#777'}
-            fontWeight="500"
+            fontWeight="600"
             value={searchText}
             returnKeyType="done"
             onChangeText={handleText}
@@ -166,13 +166,15 @@ function Index() {
               data={searchResult}
               keyExtractor={(item) => item.place_id.toString()}
               renderItem={({item}) => {
-                console.log(item)
+                console.log("These are the results:",{item})
                 return(
-                  <Pressable >
+                  <Pressable
+                    style={({pressed}) => [{backgroundColor: pressed ? '#222' : '#fff'}]}
+                  >
                     <Text style={[styles.location_name,  
                       {borderBottomColor: item?.addresstype ? '#ddd' : '#fff'}]}>
-                        {item?.addresstype ? 
-                          (item?.addresstype?.city || item?.addresstype?.state || item?.addresstype?.country ||"Location Not Found") : "No Address Data"
+                        {item ? 
+                          (item?.display_name || item?.addresstype?.state || item?.addresstype?.country ||"Location Not Found") : "No Address Data"
                         }
                     </Text>
                     
@@ -228,11 +230,11 @@ const styles = StyleSheet.create({
     
   },
   location_name: {
-    fontSize: 20,
-    fontWeight: '500',
+    fontSize: 18,
+    fontWeight: '400',
     marginBottom: 30,
     marginLeft: 10,
-    color: '#666',
+    color: '#777',
     borderBottomColor: '#dedede',
     borderBottomWidth: 1,
     paddingBottom: 5

@@ -15,7 +15,7 @@ const Profile = () => {
             </View>
 
             <View>
-                <Text style={{color: '#444', fontWeight: 'bold', fontSize: 32, top: 20 }}>Kelvin Osei Yeboah</Text>
+                <Text style={{color: '#222', fontWeight: 'light', fontSize: 30, top: 20 }}>Kelvin Osei Yeboah</Text>
             </View>
 
             <View style={styles.rating_container}>
@@ -27,61 +27,61 @@ const Profile = () => {
 
         <ScrollView style={styles.scroll_section}> 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('ProfileInfoScreen')}>
-                <Icon name="user" color="#222" size={27} />
+                <Icon name="user" color="#222" size={20} />
                 <Text style={styles.btn_text}>Personal Information</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('SettingsScreen')}>
-                <Icon name="cog" color="#222" size={23} />
+                <Icon name="cog" color="#222" size={20} />
                 <Text style={styles.btn_text}>Settings</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('LoginSecurity')}>
-                <Icon name="shield" color="#222" size={23} />
+                <Icon name="shield" color="#222" size={20} />
                 <Text style={styles.btn_text}>Login and Security</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('DataPrivacy')}>
-                <Icon name="lock" color="#222" size={23} />
+                <Icon name="lock" color="#222" size={20} />
                 <Text style={styles.btn_text}>Data and Privacy</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddHome')}>
-                <Icon name="home" color="#222" size={23} />
+                <Icon name="home" color="#222" size={20} />
                 <Text style={styles.btn_text}>Add Home Address</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddWork')}>
-                <Icon name="building" color="#222" size={23} />
+                <Icon name="building" color="#222" size={20} />
                 <Text style={styles.btn_text}>Add Workplace Address</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('AddLocation')}>
-                <Icon name="plus" color="#222" size={23} />
+                <Icon name="plus" color="#222" size={20} />
                 <Text style={styles.btn_text}>Add Location</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#eaeaea' : '#f5f5f5'}]} onPress={() => router.push('Logout')}>
-                <Icon name="sign-out" color="#222" size={23} />
+                <Icon name="sign-out" color="#222" size={20} />
                 <Text style={styles.btn_text}>Logout</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#ccc' : '#f5f5f5'}]}>
-                <Icon name="trash" color="red" size={23} bold/>
+                <Icon name="trash" color="red" size={20} bold/>
                 <Text style={[styles.btn_text, {color: 'red'}]}>Delete Account</Text>
                 
             </Pressable>
 
             <Pressable style={({pressed}) => [styles.setting_btn, {backgroundColor: pressed ? '#ccc' : '#f5f5f5'}]}>
-                <Icon name="refresh" color="#222" size={23} bold/>
+                <Icon name="refresh" color="#222" size={20} bold/>
                 <Text style={styles.btn_text}>Check for updates</Text>
                 
             </Pressable>
