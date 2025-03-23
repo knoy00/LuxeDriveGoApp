@@ -3,16 +3,54 @@ import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useRouter} from 'expo-router';
 import * as Haptics from 'expo-haptics';
+import * as LocalAuthentication from 'expo-local-authentication';
+import {Alert} from 'react-native'
+
 
 
 const LoginSecurity = () => {
 
+    const checkFaceIDAvailability = async () => {
+        const compatible = await LocalAuthentication.hasHardwareAsync();
+        const enrolled = await LocalAuthentication.isEnrolledAsync();
+
+        if(!compatible || !enrolled){
+            Alert.alert('Face ID is not available on this device');
+            return false;
+        }
+        return true;
+    }
+
+    const authenticateUser = async () => {
+        const isAvailable = await checkFaceIDAvailability();
+        if(!isAvailable) return;
+
+        const result = await LocalAuthentication.authenticateAsync({
+            promptMessage: 'Login with Face ID',
+            disableDeviceFallback: false,
+            fallbackLabel: 'Use Passcode',
+            cancelLabel: 'Cancel',
+        })
+
+        if(result.success){
+            Alert.alert('Face ID Enabled');
+            return true;
+        }
+        Alert.alert('Not Authenticated');
+        return false;
+    }
+
     const [isEnable, setIsEnable] = useState(false);
 
-    const toggleSwitch = () => {
-        setIsEnable(!isEnable);
+    const toggleSwitch = async () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        const authenticated = await authenticateUser();
+        if(authenticated){
+            setIsEnable(!isEnable);
+        }
+        
     }
+
     const router = useRouter();
   return (
     <View style={styles.container}>
@@ -34,13 +72,21 @@ const LoginSecurity = () => {
 
         <View style={[styles.option_wrapper]} >
             <View style={styles.option_name_wrapper}>
-                <Icon name="user-circle" color="#222" size={21} />
+                <Icon name="smile-o" color="#222" size={21} />
                 <Text style={styles.option_text}>Enable Face ID</Text>
             </View>
             <Pressable style={[styles.radio_btn_wrapper, isEnable ? {backgroundColor: '#2EA747', borderColor: '#2EA747' } : {}]} onPress={toggleSwitch}>
                 <View style={[styles.radio_btn, isEnable ? {transform: [{translateX: 20}]} : {}]}></View>
             </Pressable>
         </View>
+
+        <Pressable style={[styles.option_wrapper]} onPress={() => router.push('PinSecurity')}>
+            <View style={styles.option_name_wrapper}>
+                <Icon name="lock" color="#222" size={21} />
+                <Text style={styles.option_text}>Enable PIN Security</Text>
+            </View>
+            <Icon name="angle-right" color="#222" size={25} />
+        </Pressable>
 
         <ScrollView style={{width: '100%', marginTop: 0, padding: 20, flex: 1}} contentContainerStyle={{flexGrow: 1, paddingVertical: 20}}>
             <Text style={{fontSize: 25, fontWeight: 600, color: '#222'}}>Passkeys</Text>
@@ -115,7 +161,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 20,
+        padding: 15,
         marginTop: 10,
     },
     option_name_wrapper: {
@@ -164,7 +210,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        top: 0,
+        top: .5,
         left: 0,
         
     }

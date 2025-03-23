@@ -24,7 +24,8 @@ export default function RootLayout() {
         <Stack.Screen name="AddLocation" options={{ headerShown: false }} />
         <Stack.Screen name="Logout" options={{ headerShown: false }} />
         {/* <Stack.Screen name="Button" options={{ headerShown: false }} /> */}
-        <Stack.Screen name="ModalSheet" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="ModalSheet" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="PinSecurity" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
   );

@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Pressable, Keyboard } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import BottomSheet from '@gorhom/bottom-sheet';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {X} from 'lucide-react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
+
+
 
 function Index() {
   const [region, setRegion] = useState(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+
+  const translateY = useSharedValue(0);
+  const animated = useAnimatedStyle(() => ({
+    transform: [{translateY: withTiming(isFocused ? -600 : 0, {duration: 300})}]
+  }))
 
   useEffect(() => {
     (async () => {
@@ -24,6 +36,11 @@ function Index() {
       });
     })();
   }, []);
+
+  const close = () => {
+    setIsFocused(false);
+    Keyboard.dismiss();
+  }
 
   const customMapStyle = [
     {
@@ -82,16 +99,34 @@ function Index() {
         />
       )}
 
-      <View style={styles.input_wrapper}>
-        <TextInput
-          style={styles.input_text}
-          placeholder="Where to?"
-          placeholderTextColor={'#777'}
-          returnKeyType="go"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </View>
+      <Animated.View style={[styles.input_wrapper, animated, {borderTopLeftRadius: isFocused ? 0 : 20, borderTopRightRadius: isFocused ? 0 : 20}]}>
+        {isFocused && <Pressable style={{ position: 'absolute', right: 20, top: 15, backgroundColor: '#222', width: 30, height: 30, borderRadius: 30, justifyContent: 'center', alignItems: 'center'}} onPress={close}>
+          <X size={23} color="#777" />
+        </Pressable>}
+        <View style={{marginTop: isFocused ? 58 : 18}}>
+          {isFocused && <TextInput
+            style={[styles.input_text, { borderColor: isFocused ? '#222' : '#efefef' }]}
+            placeholder="Pick-up location"
+            placeholderTextColor={'#777'}
+            returnKeyType="go"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />}
+          <TextInput
+            style={[styles.input_text, { borderColor: isFocused ? '#222' : '#efefef', marginTop: isFocused ? 20 : 0 }]}
+            placeholder="Where to?"
+            placeholderTextColor={'#777'}
+            returnKeyType="go"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        </View>
+        
+      </Animated.View>
 
       <BottomSheet />
 
@@ -113,11 +148,12 @@ const styles = StyleSheet.create({
   },
   input_wrapper: {
     position: 'absolute',
-    top: '89%',
+    top: '90%',
     width: '100%',
     paddingHorizontal: 20,
     backgroundColor: 'white',
-    paddingVertical: 20,
+    paddingVertical: 0,
+    height: '100%'
   },
   input_text: {
     width: '100%',
@@ -128,5 +164,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '400',
     backgroundColor: '#efefef',
+    marginTop: 0,
+    borderWidth: 2,
+    
   }
 });
