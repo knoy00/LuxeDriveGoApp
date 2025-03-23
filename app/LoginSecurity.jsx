@@ -92,7 +92,7 @@ const LoginSecurity = () => {
             <Text style={{fontSize: 25, fontWeight: 600, color: '#222'}}>Passkeys</Text>
             <Text style={{fontSize: 18, fontWeight: 400, color: '#F36621', marginTop: 20}}>Set up your Passkeys</Text>
 
-            <Text style={{fontSize: 16, fontWeight: 400, color: '#777', marginTop: 10, paddingVertical: 20}}>Passkeys are a safer and easier way to sign in to your account without using a password. They use your device’s fingerprint, face recognition, or PIN to verify your identity. Unlike passwords, passkeys can't be stolen in phishing attacks, making your account more secure. With passkeys, logging in is fast, secure, and hassle-free! 🚀</Text>
+            <Text style={{fontSize: 16, fontWeight: 400, color: '#777', marginTop: 10, paddingVertical: 10}}>Passkeys are a safer and easier way to sign in to your account without using a password. They use your device’s fingerprint, face recognition, or PIN to verify your identity. Unlike passwords, passkeys can't be stolen in phishing attacks, making your account more secure. With passkeys, logging in is fast, secure, and hassle-free! 🚀</Text>
 
             <Text style={{fontSize: 25, fontWeight: 600, color: '#222', marginTop: 10}}>Other login options</Text>
 
