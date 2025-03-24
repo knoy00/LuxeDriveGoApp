@@ -4,6 +4,8 @@ import React, {useState} from 'react'
 const ChooseRide = () => {
 
     const [visible, setVisible] = useState(false);
+
+    const [isActive, setIsActive] = useState(true);
   return (
     <View style={styles.container}>
       <Pressable onPress={() => setVisible(true)}>
@@ -25,26 +27,68 @@ const ChooseRide = () => {
                       <Text style={{color: '#fff', fontSize: 20, fontWeight: 'regular', textAlign: 'center', backgroundColor: '#222', padding: 10}}>Choose a Ride</Text>
                     </View>
 
-                    <View style={styles.pick_ride_container_skeleton}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            <View>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
+                            <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 100}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
                                 <View>
                                     <Text style={styles.ride_name}>LuxeDriveGo</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
                                 </View>
-                                <View>
+                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
                                     <Text style={styles.price}>$1000</Text>
+                                    <Text style={styles.discount}>$1000</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
+                            <View style={{width: '21%', marginTop: 10}}>
+                                <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
+                                <View>
+                                    <Text style={styles.ride_name}>LuxeGreen</Text>
+                                    <Text style={styles.time}>8:13 AM</Text>
+                                </View>
+                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
+                                    <Text style={styles.price}>$1000</Text>
+                                    <Text style={styles.discount}>$1000</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
+                            <View style={{width: '21%', marginTop: 10}}>
+                                <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
+                                <View>
+                                    <Text style={styles.ride_name}>LuxeDriveGo</Text>
+                                    <Text style={styles.time}>8:13 AM</Text>
+                                </View>
+                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
+                                    <Text style={styles.price}>$1000</Text>
+                                    <Text style={styles.discount}>$1000</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+
+                
+
                 </View>
 
-                <Pressable onPress={() => setVisible(false)}>
-                    <Text>Close Bottom Sheet</Text>
+                <Pressable>
+                    <Text>Payment</Text>
+                </Pressable>
+
+                <Pressable onPress={() => setVisible(false)} style={styles.button}>
+                    <Text style={styles.button_text}>Confirm Ride</Text>
                 </Pressable>
         </View>
         
@@ -70,8 +114,6 @@ const styles = StyleSheet.create({
     },
     pick_ride_container_skeleton: {
         width: '100%',
-    
-        backgroundColor: 'red',
         borderRadius: 10,
         marginBottom: 10
     },
@@ -81,14 +123,16 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0,0.0)"
     },
     image_icon: {
-        width: 80,
+        width: 100,
         height: 80,
         resizeMode: 'contain',
+        marginRight: 20
     },
     ride_name: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 5,
+        color: "#fff"
     },
     time:  {
         fontSize: 14,
@@ -97,6 +141,27 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 10
+        marginTop: 10,
+        color: '#fff'
+    },
+    discount: {
+        fontSize: 14,
+        color: '#888',
+        marginTop: 5
+    },
+    button: {
+        width: '100%',
+        padding: 15,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        
+    },
+    button_text: {
+        fontSize: 18,
+        fontWeight: 'bold'
     }
 })
