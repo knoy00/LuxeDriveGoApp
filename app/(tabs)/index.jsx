@@ -9,6 +9,7 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-na
 import axios from 'axios';
 import MapViewStyling from '../../app/Utils/MapViewStyiling.json'
 import { useRouter } from 'expo-router';
+import ChooseRide from '../ChooseRide';
 
 
 
@@ -21,6 +22,9 @@ function Index() {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [selectedResult, setSelectedResult] = useState(null);
+
+  const [isActive, setIsActive] = useState(null);
+  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
 
   const translateY = useSharedValue(0);
@@ -118,6 +122,11 @@ function Index() {
     searchResult([]);
   }
 
+  const openModal = () => {
+    setIsBottomSheetVisible(true);
+    setIsFocused(false);
+  }
+
   return (
     <View style={styles.container}>
       {region && (
@@ -173,9 +182,7 @@ function Index() {
             // onBlur={() => setIsFocused(false)}
           />
 
-          <Pressable onPress={() => router.push('ChooseRide')}>
-            <Icon name="search" size={25} color="#222" />
-          </Pressable>
+          
         </View>
           {isFocused && searchResult.length > 0 &&(
             <FlatList
@@ -188,7 +195,7 @@ function Index() {
                 return(
                   <Pressable
                     style={({pressed}) => [{backgroundColor: pressed ? '#dedede' : '#fff'}]}
-                    onPress={() => router.push('ChooseRide')}
+                    onPress={openModal}
                   >
                     <Text style={[styles.location_name,  
                       {borderBottomColor: item?.addresstype ? '#ddd' : '#fff'}]}>
@@ -202,7 +209,6 @@ function Index() {
                       <Text style={{color: 'green', fontWeight: 'light', fontSize: 16, marginLeft: 5}}>{item?.addresstype}</Text>
                     </View>
 
-                    
                   </Pressable>
                 )
               }}
@@ -211,6 +217,8 @@ function Index() {
       </Animated.View>
 
       <BottomSheet />
+
+      {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} />}
 
     </View>
   );

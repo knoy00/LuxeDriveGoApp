@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, Modal, Pressable, Image} from 'react-native'
 import React, {useState} from 'react'
 import {X, Bus, ChevronRight } from 'lucide-react-native';
 
-const ChooseRide = () => {
+const ChooseRide = ({visible, setIsVisible}) => {
 
-    const [visible, setVisible] = useState(false);
+   
 
     const [isActive, setIsActive] = useState(true);
   return (
@@ -23,15 +23,15 @@ const ChooseRide = () => {
         <View style={styles.overlay}>
                 <View style={styles.modal_sheet}>
                     <View>
-                      <Text style={{color: '#fff', fontSize: 20, fontWeight: 'regular', textAlign: 'center', backgroundColor: '#111', padding: 10, marginBottom: 10}}>Choose a Ride</Text>
+                      <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 10, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
                     </View>
                     
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
                         <View style={{flexDirection: 'row', gap: 20}}>
                             <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
                                 <View style={{ width: 160}}>
                                     <Text style={styles.ride_name}>LuxeDriveGo</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
@@ -44,12 +44,12 @@ const ChooseRide = () => {
                         </View>
                     </View>
 
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
                         <View style={{flexDirection: 'row', gap: 20}}>
                             <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#ccc'}}>
                                 <View style={{ width: 160}}>
                                     <Text style={styles.ride_name}>LuxeGreen</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
@@ -62,12 +62,12 @@ const ChooseRide = () => {
                         </View>
                     </View>
 
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
                         <View style={{flexDirection: 'row', gap: 20}}>
                             <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/Gold.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
                                 <View style={{ width: 160}}>
                                     <Text style={styles.ride_name}>LuxePremium</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
@@ -80,9 +80,7 @@ const ChooseRide = () => {
                         </View>
                     </View>
 
-                </View>
-
-                <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
+                    <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
                     <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
                         <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
                         <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
@@ -97,6 +95,10 @@ const ChooseRide = () => {
                         <Text style={styles.button_text}>Confirm Ride</Text>
                     </Pressable>
                 </View>
+
+                </View>
+
+                
                 
         </View>
         
@@ -115,17 +117,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     modal_sheet: {
-        backgroundColor: '#111',
+        backgroundColor: '#fff',
         padding: 15,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         width : '100%',
-        height: '50%',
     },
     pick_ride_container_skeleton: {
         width: '100%',
         borderRadius: 10,
-        marginBottom: 20
+        marginBottom: 20,
     },
     overlay: {
         flex: 1,
@@ -142,32 +143,32 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: "#fff",
+        color: "#444",
     },
     time:  {
         fontSize: 14,
-        color: '#888'
+        color: '#666'
     },
     price: {
         fontSize: 18,
         fontWeight: 'bold',
         marginTop: 10,
-        color: '#fff'
+        color: '#444'
     },
     discount: {
         fontSize: 14,
-        color: '#888',
+        color: '#666',
         marginTop: 5
     },
     button: {
         paddingVertical: 20,
-        backgroundColor: '#111',
+        backgroundColor: '#222',
         borderRadius: 10,
         marginBottom: 40,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
-        width: '95%',
+        width: '100%',
 
         
     },

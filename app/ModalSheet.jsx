@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Trips = ({Feature_name, Feature_content, icon_name, button_text, isVisible, setIsVisible}) => {
 
+
+
   return (
     <View style={styles.container}>
       
