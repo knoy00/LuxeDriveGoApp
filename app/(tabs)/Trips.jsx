@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  
   },
   title: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
 });

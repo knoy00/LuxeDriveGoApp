@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable, Keyboard, FlatList, Text, ScrollView } from 'react-native';
-import MapView, { Marker, PROVIDER_DEFAULT} from 'react-native-maps';
+import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {X, Bus} from 'lucide-react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
 import axios from 'axios';
+import MapViewStyling from '../../app/Utils/MapViewStyiling.json'
+import { useRouter } from 'expo-router';
 
 
 
 function Index() {
+  const router = useRouter();
 
   const [region, setRegion] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -118,13 +121,24 @@ function Index() {
   return (
     <View style={styles.container}>
       {region && (
+        <>  
         <MapView
           style={styles.map}
-          customMapStyle={customMapStyle}
-          showsUserLocation={true}
+          customMapStyle={MapViewStyling}
+          showsUserLocation={false}
           followsUserLocation={false}
           initialRegion={region}
-        />
+          // provider={PROVIDER_GOOGLE}
+        >
+          <Marker 
+            coordinate={{latitude: region.latitude, longitude: region.longitude}}
+            title="Your Current Location"
+            description="Your current location" 
+          />
+        </MapView>
+
+        
+        </>
       )}
 
       <Animated.View style={[styles.input_wrapper, animated, {borderTopLeftRadius: isFocused ? 20 : 0, borderTopRightRadius: isFocused ? 20 : 0}]}>
@@ -156,8 +170,12 @@ function Index() {
             onChangeText={handleText}
             autoCorrect={false}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            // onBlur={() => setIsFocused(false)}
           />
+
+          <Pressable onPress={() => router.push('ChooseRide')}>
+            <Icon name="search" size={25} color="#222" />
+          </Pressable>
         </View>
           {isFocused && searchResult.length > 0 &&(
             <FlatList
@@ -169,19 +187,22 @@ function Index() {
                 console.log("These are the results:",{item})
                 return(
                   <Pressable
-                    style={({pressed}) => [{backgroundColor: pressed ? '#222' : '#fff'}]}
+                    style={({pressed}) => [{backgroundColor: pressed ? '#dedede' : '#fff'}]}
+                    onPress={() => router.push('ChooseRide')}
                   >
                     <Text style={[styles.location_name,  
                       {borderBottomColor: item?.addresstype ? '#ddd' : '#fff'}]}>
                         {item ? 
-                          (item?.display_name || item?.addresstype?.state || item?.addresstype?.country ||"Location Not Found") : "No Address Data"
+                          (item?.name || item?.addresstype?.state || item?.addresstype?.country ||"Location Not Found") : "No Address Data"
                         }
                     </Text>
                     
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                      <Text>{item?.address?.city}</Text>
-                      <Text>{item?.address?.country}</Text>
+                    <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', paddingBottom: 10, flexDirection: 'row', alignItems: 'center', paddingLeft: 5, }}>
+                      <Text>{item?.type}</Text>
+                      <Text style={{color: 'green', fontWeight: 'light', fontSize: 16, marginLeft: 5}}>{item?.addresstype}</Text>
                     </View>
+
+                    
                   </Pressable>
                 )
               }}
@@ -230,13 +251,12 @@ const styles = StyleSheet.create({
     
   },
   location_name: {
-    fontSize: 18,
-    fontWeight: '400',
-    marginBottom: 30,
-    marginLeft: 10,
-    color: '#777',
-    borderBottomColor: '#dedede',
-    borderBottomWidth: 1,
-    paddingBottom: 5
+    fontSize: 19,
+    fontWeight: '600',
+    marginBottom: 5,
+    marginTop: 10,
+    marginLeft: 5,
+    color: '#222',
+    
   }
 });
