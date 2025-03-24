@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Modal, Pressable, Image} from 'react-native'
 import React, {useState} from 'react'
+import {X, Bus, ChevronRight } from 'lucide-react-native';
 
 const ChooseRide = () => {
 
@@ -19,77 +20,84 @@ const ChooseRide = () => {
       animationType='slide'
       >
 
-        
-
         <View style={styles.overlay}>
                 <View style={styles.modal_sheet}>
                     <View>
-                      <Text style={{color: '#fff', fontSize: 20, fontWeight: 'regular', textAlign: 'center', backgroundColor: '#222', padding: 10}}>Choose a Ride</Text>
+                      <Text style={{color: '#fff', fontSize: 20, fontWeight: 'regular', textAlign: 'center', backgroundColor: '#111', padding: 10, marginBottom: 10}}>Choose a Ride</Text>
                     </View>
-
+                    
                     <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
+                        <View style={{flexDirection: 'row', gap: 20}}>
                             <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
-                                <View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                                <View style={{ width: 160}}>
                                     <Text style={styles.ride_name}>LuxeDriveGo</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
                                 </View>
-                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
-                                    <Text style={styles.price}>$1000</Text>
+                                <View style={{ marginTop: -10}}>
+                                    <Text style={styles.price}>GHC1000</Text>
                                     <Text style={styles.discount}>$1000</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
+
                     <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
+                        <View style={{flexDirection: 'row', gap: 20}}>
                             <View style={{width: '21%', marginTop: 10}}>
                                 <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
                             </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
-                                <View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                                <View style={{ width: 160}}>
                                     <Text style={styles.ride_name}>LuxeGreen</Text>
                                     <Text style={styles.time}>8:13 AM</Text>
                                 </View>
-                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
-                                    <Text style={styles.price}>$1000</Text>
-                                    <Text style={styles.discount}>$1000</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
-                            <View style={{width: '21%', marginTop: 10}}>
-                                <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
-                            </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 90, justifyContent: 'center', width: '80%'}}>
-                                <View>
-                                    <Text style={styles.ride_name}>LuxeDriveGo</Text>
-                                    <Text style={styles.time}>8:13 AM</Text>
-                                </View>
-                                <View style={{alignItems: 'flex-end', marginTop: -10}}>
-                                    <Text style={styles.price}>$1000</Text>
+                                <View style={{ marginTop: -10}}>
+                                    <Text style={styles.price}>GHC1000</Text>
                                     <Text style={styles.discount}>$1000</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
 
-                
+                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#fff'} : {}]}>
+                        <View style={{flexDirection: 'row', gap: 20}}>
+                            <View style={{width: '21%', marginTop: 10}}>
+                                <Image source={require('../assets/icons/Gold.png')} style={styles.image_icon}/>
+                            </View>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between'}}>
+                                <View style={{ width: 160}}>
+                                    <Text style={styles.ride_name}>LuxePremium</Text>
+                                    <Text style={styles.time}>8:13 AM</Text>
+                                </View>
+                                <View style={{ marginTop: -10}}>
+                                    <Text style={styles.price}>GHC1000</Text>
+                                    <Text style={styles.discount}>$1000</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
 
                 </View>
 
-                <Pressable>
-                    <Text>Payment</Text>
+                <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                        <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
+                        <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
+                    </View>
+                    <View>
+                        <ChevronRight  size={20} color='#222'/>
+                    </View>
                 </Pressable>
 
-                <Pressable onPress={() => setVisible(false)} style={styles.button}>
-                    <Text style={styles.button_text}>Confirm Ride</Text>
-                </Pressable>
+                <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
+                    <Pressable onPress={() => setVisible(false)} style={styles.button}>
+                        <Text style={styles.button_text}>Confirm Ride</Text>
+                    </Pressable>
+                </View>
+                
         </View>
         
       </Modal>
@@ -107,15 +115,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     modal_sheet: {
-        backgroundColor: '#222',
+        backgroundColor: '#111',
         padding: 15,
         borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopRightRadius: 20,
+        width : '100%',
+        height: '50%',
     },
     pick_ride_container_skeleton: {
         width: '100%',
         borderRadius: 10,
-        marginBottom: 10
+        marginBottom: 20
     },
     overlay: {
         flex: 1,
@@ -132,7 +142,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: "#fff"
+        color: "#fff",
     },
     time:  {
         fontSize: 14,
@@ -150,18 +160,20 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     button: {
-        width: '100%',
-        padding: 15,
-        backgroundColor: '#fff',
+        paddingVertical: 20,
+        backgroundColor: '#111',
         borderRadius: 10,
-        marginBottom: 10,
+        marginBottom: 40,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
+        width: '95%',
+
         
     },
     button_text: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#fff'
     }
 })
