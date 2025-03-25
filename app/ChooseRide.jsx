@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Modal, Pressable, Image} from 'react-native'
+import { StyleSheet, Text, View, Modal, Pressable, Image, TextInput} from 'react-native'
 import React, {useState, useEffect} from 'react'
-import {X, Bus, ChevronRight } from 'lucide-react-native';
+import {X, Bus, ChevronRight, ChevronLeft } from 'lucide-react-native';
 
 const ChooseRide = ({visible, setIsVisible}) => {
 
@@ -26,10 +26,26 @@ const ChooseRide = ({visible, setIsVisible}) => {
       animationType='slide'
       >
 
+        {!isLoading && <View style={{alignItems: 'center'}}>
+
+            <View style={{position: 'absolute', top: 50, backgroundColor: '#fff', width: '95%', paddingVertical: 5, paddingHorizontal: 40, borderRadius: 10}}>
+                <View style={{position: 'absolute', top: 15, left: 10}}>
+                    <ChevronLeft size={25} color={'#222'}/>
+                </View>
+                <TextInput
+                    placeholder='Search'
+                    style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 12}}
+                    fontSize="18"
+
+                />
+            </View>
+        </View>}
+        
+
         <View style={styles.overlay}>
                 <View style={styles.modal_sheet}>
                     <View>
-                      <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 20, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
+                      <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 20, borderBottomWidth: .8, borderColor: '#eee'}}>Choose a Ride</Text>
                     </View>
 
                     { isLoading && <>
@@ -106,12 +122,13 @@ const ChooseRide = ({visible, setIsVisible}) => {
                     </>}
 
                     {!isLoading && <>
+                        
                         <Pressable onPress={() => handleActiveTab('go')} style={[styles.pick_ride_container_skeleton, isActive === "go" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
                             <View style={{flexDirection: 'row', gap: 20}}>
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
                                 </View>
-                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#eee'}}>
                                     <View style={{ width: 160}}>
                                         <Text style={styles.ride_name}>LuxeDriveGo</Text>
                                         <Text style={styles.time}>8:13 AM</Text>
@@ -129,7 +146,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
                                 </View>
-                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#eee'}}>
                                     <View style={{ width: 160}}>
                                         <Text style={styles.ride_name}>LuxeGreen</Text>
                                         <Text style={styles.time}>8:13 AM</Text>
@@ -147,7 +164,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/Gold.png')} style={styles.image_icon}/>
                                 </View>
-                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#eee'}}>
                                     <View style={{ width: 160}}>
                                         <Text style={styles.ride_name}>LuxePremium</Text>
                                         <Text style={styles.time}>8:13 AM</Text>

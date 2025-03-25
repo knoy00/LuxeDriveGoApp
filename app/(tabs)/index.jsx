@@ -10,11 +10,18 @@ import axios from 'axios';
 import MapViewStyling from '../../app/Utils/MapViewStyiling.json'
 import { useRouter } from 'expo-router';
 import ChooseRide from '../ChooseRide';
+import { Platform } from 'react-native';
 
 
 
 function Index() {
-  const router = useRouter();
+
+  let MapView, Marker;
+  if (Platform.OS !== 'web') {
+  MapView = require('react-native-maps').default;
+  Marker = require('react-native-maps').Marker;
+  }
+  const router = useRouter()
 
   const [region, setRegion] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -129,24 +136,24 @@ function Index() {
 
   return (
     <View style={styles.container}>
-      {region && (
-        <>  
-        <MapView
-          style={styles.map}
-          customMapStyle={MapViewStyling}
-          showsUserLocation={false}
-          followsUserLocation={false}
-          initialRegion={region}
-          // provider={PROVIDER_GOOGLE}
-        >
-          <Marker 
-            coordinate={{latitude: region.latitude, longitude: region.longitude}}
-            title="Your Current Location"
-            description="Your current location" 
-          />
-        </MapView>
-
         
+      {region && Platform.OS !== 'web' &&(
+        <>  
+          <MapView
+            style={styles.map}
+            customMapStyle={MapViewStyling}
+            showsUserLocation={false}
+            followsUserLocation={false}
+            initialRegion={region}
+            // provider={PROVIDER_GOOGLE}
+          >
+            <Marker 
+              coordinate={{latitude: region.latitude, longitude: region.longitude}}
+              title="Your Current Location"
+              description="Your current location" 
+            />
+          </MapView>
+
         </>
       )}
 
@@ -182,7 +189,9 @@ function Index() {
             // onBlur={() => setIsFocused(false)}
           />
 
-          
+          <Pressable onPress={() => router.push('ChooseRide')}>
+            <Icon name="search" size={25} color="#222" />
+          </Pressable>
         </View>
           {isFocused && searchResult.length > 0 &&(
             <FlatList
