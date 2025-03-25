@@ -4,9 +4,12 @@ import {X, Bus, ChevronRight } from 'lucide-react-native';
 
 const ChooseRide = ({visible, setIsVisible}) => {
 
-   
+    const [isActive, setIsActive] = useState(null);
 
-    const [isActive, setIsActive] = useState(false);
+    const handleActiveTab = (tab) => {
+        setIsActive(prev => prev === tab ? null : tab);
+    }
+
   return (
     <View style={styles.container}>
       <Modal
@@ -21,76 +24,152 @@ const ChooseRide = ({visible, setIsVisible}) => {
                     <View>
                       <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 20, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
                     </View>
-                    
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
-                        <View style={{flexDirection: 'row', gap: 20}}>
-                            <View style={{width: '21%', marginTop: 10}}>
-                                <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
-                            </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
-                                <View style={{ width: 160}}>
-                                    <Text style={styles.ride_name}>LuxeDriveGo</Text>
-                                    <Text style={styles.time}>8:13 AM</Text>
+
+                    <>
+                        <Pressable onPress={() => handleActiveTab('go')} style={[styles.pick_ride_container_skeleton, isActive === "go" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
                                 </View>
-                                <View style={{ marginTop: -10}}>
-                                    <Text style={styles.price}>GHC1000</Text>
-                                    <Text style={styles.discount}>$1000</Text>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name_skeleton}>LuxeDriveGo</Text>
+                                        <Text style={styles.time_skeleton}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price_skeleton}>GHC1000</Text>
+                                        <Text style={styles.discount_skeleton}>$1000</Text>
+                                    </View>
                                 </View>
                             </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => handleActiveTab('green')} style={[styles.pick_ride_container_skeleton, isActive === 'green' ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name_skeleton}>LuxeGreen</Text>
+                                        <Text style={styles.time_skeleton}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price_skeleton}>GHC1000</Text>
+                                        <Text style={styles.discount_skeleton}>$1000</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => handleActiveTab('premium')} style={[styles.pick_ride_container_skeleton, isActive === "premium" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name_skeleton}>LuxePremium</Text>
+                                        <Text style={styles.time_skeleton}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price_skeleton}>GHC1000</Text>
+                                        <Text style={styles.discount_skeleton}>$1000</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                            <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
+                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
                         </View>
-                    </View>
-
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
-                        <View style={{flexDirection: 'row', gap: 20}}>
-                            <View style={{width: '21%', marginTop: 10}}>
-                                <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
-                            </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#ccc'}}>
-                                <View style={{ width: 160}}>
-                                    <Text style={styles.ride_name}>LuxeGreen</Text>
-                                    <Text style={styles.time}>8:13 AM</Text>
-                                </View>
-                                <View style={{ marginTop: -10}}>
-                                    <Text style={styles.price}>GHC1000</Text>
-                                    <Text style={styles.discount}>$1000</Text>
-                                </View>
-                            </View>
+                        <View>
+                            <ChevronRight  size={20} color='#222'/>
                         </View>
-                    </View>
-
-                    <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
-                        <View style={{flexDirection: 'row', gap: 20}}>
-                            <View style={{width: '21%', marginTop: 10}}>
-                                <Image source={require('../assets/icons/Gold.png')} style={styles.image_icon}/>
-                            </View>
-                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
-                                <View style={{ width: 160}}>
-                                    <Text style={styles.ride_name}>LuxePremium</Text>
-                                    <Text style={styles.time}>8:13 AM</Text>
-                                </View>
-                                <View style={{ marginTop: -10}}>
-                                    <Text style={styles.price}>GHC1000</Text>
-                                    <Text style={styles.discount}>$1000</Text>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-
-                    <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
-                    <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                        <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
-                        <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
-                    </View>
-                    <View>
-                        <ChevronRight  size={20} color='#222'/>
-                    </View>
-                </Pressable>
-
-                <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
-                    <Pressable onPress={() => setVisible(false)} style={styles.button}>
-                        <Text style={styles.button_text}>Confirm Ride</Text>
                     </Pressable>
-                </View>
+
+                    <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
+                        <Pressable onPress={() => setVisible(false)} style={styles.button}>
+                            <Text style={styles.button_text}>Confirm Ride</Text>
+                        </Pressable>
+                    </View>
+
+                </>
+
+                <>
+                        <Pressable onPress={() => handleActiveTab('go')} style={[styles.pick_ride_container_skeleton, isActive === "go" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/white_car.png')} style={styles.image_icon}/>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name}>LuxeDriveGo</Text>
+                                        <Text style={styles.time}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.discount}>$1000</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => handleActiveTab('green')} style={[styles.pick_ride_container_skeleton, isActive === 'green' ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/green.png')} style={styles.image_icon}/>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between' , borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name}>LuxeGreen</Text>
+                                        <Text style={styles.time}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.discount}>$1000</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => handleActiveTab('premium')} style={[styles.pick_ride_container_skeleton, isActive === "premium" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                            <View style={{flexDirection: 'row', gap: 20}}>
+                                <View style={{width: '21%', marginTop: 10}}>
+                                    <Image source={require('../assets/icons/Gold.png')} style={styles.image_icon}/>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center', gap: 40, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#ccc'}}>
+                                    <View style={{ width: 160}}>
+                                        <Text style={styles.ride_name}>LuxePremium</Text>
+                                        <Text style={styles.time}>8:13 AM</Text>
+                                    </View>
+                                    <View style={{ marginTop: -10}}>
+                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.discount}>$1000</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </Pressable>
+
+                        <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                            <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
+                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
+                        </View>
+                        <View>
+                            <ChevronRight  size={20} color='#222'/>
+                        </View>
+                    </Pressable>
+
+                    <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
+                        <Pressable onPress={() => setVisible(false)} style={styles.button}>
+                            <Text style={styles.button_text}>Confirm Ride</Text>
+                        </Pressable>
+                    </View>
+
+                </>
 
                 </View>
 
@@ -172,5 +251,28 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#fff'
-    }
+    },
+    ride_name_skeleton: {
+        width: '100%',
+        backgroundColor: '#ddd',
+        color: '#ddd'  
+    },
+    time_skeleton: {
+        width: '50%',
+        backgroundColor: '#ddd',
+        color: '#ddd',
+        marginTop: 5  
+    },
+    price_skeleton: {
+        width: 70,
+        backgroundColor: '#ddd',
+        color: '#ddd',
+        marginTop: 10
+    },
+    discount_skeleton: {
+        width: 40,
+        backgroundColor: '#ddd',
+        color: '#ddd',
+        marginTop: 5
+    }   
 })
