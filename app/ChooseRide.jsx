@@ -6,13 +6,9 @@ const ChooseRide = ({visible, setIsVisible}) => {
 
    
 
-    const [isActive, setIsActive] = useState(true);
+    const [isActive, setIsActive] = useState(false);
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => setVisible(true)}>
-        <Text>Open Bottom Sheet</Text>
-      </Pressable>
-
       <Modal
       transparent={true}
       visible={visible}
@@ -23,7 +19,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
         <View style={styles.overlay}>
                 <View style={styles.modal_sheet}>
                     <View>
-                      <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 10, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
+                      <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 20, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
                     </View>
                     
                     <View style={[styles.pick_ride_container_skeleton, isActive ? {borderWidth: 2, borderColor: '#222'} : {}]}>
@@ -126,7 +122,7 @@ const styles = StyleSheet.create({
     pick_ride_container_skeleton: {
         width: '100%',
         borderRadius: 10,
-        marginBottom: 20,
+        marginBottom: 0,
     },
     overlay: {
         flex: 1,
