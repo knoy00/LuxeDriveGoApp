@@ -1,10 +1,17 @@
 import { StyleSheet, Text, View, Modal, Pressable, Image} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {X, Bus, ChevronRight } from 'lucide-react-native';
 
 const ChooseRide = ({visible, setIsVisible}) => {
 
     const [isActive, setIsActive] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000)
+    }, [])
 
     const handleActiveTab = (tab) => {
         setIsActive(prev => prev === tab ? null : tab);
@@ -25,8 +32,8 @@ const ChooseRide = ({visible, setIsVisible}) => {
                       <Text style={{color: '#222', fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: '#fff', padding: 10, marginBottom: 20, borderBottomWidth: .8, borderColor: '#ccc'}}>Choose a Ride</Text>
                     </View>
 
-                    <>
-                        <Pressable onPress={() => handleActiveTab('go')} style={[styles.pick_ride_container_skeleton, isActive === "go" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                    { isLoading && <>
+                        <Pressable style={[styles.pick_ride_container_skeleton]}>
                             <View style={{flexDirection: 'row', gap: 20}}>
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
@@ -44,7 +51,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
                             </View>
                         </Pressable>
 
-                        <Pressable onPress={() => handleActiveTab('green')} style={[styles.pick_ride_container_skeleton, isActive === 'green' ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                        <Pressable style={[styles.pick_ride_container_skeleton]}>
                             <View style={{flexDirection: 'row', gap: 20}}>
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
@@ -62,7 +69,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
                             </View>
                         </Pressable>
 
-                        <Pressable onPress={() => handleActiveTab('premium')} style={[styles.pick_ride_container_skeleton, isActive === "premium" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
+                        <Pressable style={[styles.pick_ride_container_skeleton]}>
                             <View style={{flexDirection: 'row', gap: 20}}>
                                 <View style={{width: '21%', marginTop: 10}}>
                                     <Image source={require('../assets/icons/car_loading.png')} style={styles.image_icon}/>
@@ -80,25 +87,25 @@ const ChooseRide = ({visible, setIsVisible}) => {
                             </View>
                         </Pressable>
 
-                        <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                            <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
-                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
-                        </View>
-                        <View>
-                            <ChevronRight  size={20} color='#222'/>
-                        </View>
-                    </Pressable>
+                        <Pressable style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, marginVertical: 20, width: '100%'}}>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
 
-                    <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
-                        <Pressable onPress={() => setVisible(false)} style={styles.button}>
-                            <Text style={styles.button_text}>Confirm Ride</Text>
+                                <Text style={{color: '#ddd', fontSize: 16, fontWeight: 'regular', backgroundColor: '#ddd'}}>**** 5410</Text>
+                            </View>
+                            <View style={{backgroundColor: '#ddd'}}>
+                                <ChevronRight  size={20} color='#ddd'/>
+                            </View>
                         </Pressable>
-                    </View>
 
-                </>
+                        <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
+                            <Pressable style={styles.button_skeleton}>
+                                <Text style={styles.button_text_skeleton}>Confirm Ride</Text>
+                            </Pressable>
+                        </View>
 
-                <>
+                    </>}
+
+                    {!isLoading && <>
                         <Pressable onPress={() => handleActiveTab('go')} style={[styles.pick_ride_container_skeleton, isActive === "go" ? {borderWidth: 2, borderColor: '#222'} : {}]}>
                             <View style={{flexDirection: 'row', gap: 20}}>
                                 <View style={{width: '21%', marginTop: 10}}>
@@ -169,7 +176,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
                         </Pressable>
                     </View>
 
-                </>
+                    </>}
 
                 </View>
 
@@ -244,8 +251,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 10,
         width: '100%',
-
-        
     },
     button_text: {
         fontSize: 18,
@@ -274,5 +279,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#ddd',
         color: '#ddd',
         marginTop: 5
+    },
+    button_skeleton: {
+        paddingVertical: 20,
+        backgroundColor: '#ddd',
+        borderRadius: 10,
+        marginBottom: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        width: '100%',
+    },
+    button_text_skeleton:{
+        color: '#ddd'
     }   
 })
