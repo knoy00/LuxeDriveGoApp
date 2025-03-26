@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Modal, Pressable, Image, TextInput} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import {X, Bus, ChevronRight, ChevronLeft } from 'lucide-react-native';
+import { MotiView } from 'moti';
 
-const ChooseRide = ({visible, setIsVisible}) => {
+const ChooseRide = ({visible, setIsVisible, placeholder}) => {
 
     const [isActive, setIsActive] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -10,7 +11,7 @@ const ChooseRide = ({visible, setIsVisible}) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 3000)
+        }, 1500)
     }, [])
 
     const handleActiveTab = (tab) => {
@@ -26,20 +27,24 @@ const ChooseRide = ({visible, setIsVisible}) => {
       animationType='slide'
       >
 
-        {!isLoading && <View style={{alignItems: 'center'}}>
+        {!isLoading && <MotiView style={{alignItems: 'center'}} 
+            from={{opacity: 0, translateY: -50}}
+            animate={{opacity: 1, translateY: 0}}
+            timing={{type: 'timing', duration: 1500}}
+        >
 
             <View style={{position: 'absolute', top: 50, backgroundColor: '#fff', width: '95%', paddingVertical: 5, paddingHorizontal: 40, borderRadius: 10}}>
                 <View style={{position: 'absolute', top: 15, left: 10}}>
                     <ChevronLeft size={25} color={'#222'}/>
                 </View>
                 <TextInput
-                    placeholder='Search'
+                    placeholder={placeholder}
                     style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 12}}
                     fontSize="18"
 
                 />
             </View>
-        </View>}
+        </MotiView>}
         
 
         <View style={styles.overlay}>

@@ -129,9 +129,10 @@ function Index() {
     searchResult([]);
   }
 
-  const openModal = () => {
+  const openModal = (selectedLoc) => {
     setIsBottomSheetVisible(true);
     setIsFocused(false);
+    setSelectedResult(selectedLoc)
   }
 
   return (
@@ -198,18 +199,18 @@ function Index() {
               style={{marginTop: 30, width: '100%'}}
               nestedScrollEnabled={true}
               data={searchResult}
-              keyExtractor={(item) => item.place_id.toString()}
+              keyExtractor={(item) => item.place_id ? item.place_id.toString() : Math.randon().toString()}
               renderItem={({item}) => {
                 console.log("These are the results:",{item})
                 return(
                   <Pressable
                     style={({pressed}) => [{backgroundColor: pressed ? '#dedede' : '#fff'}]}
-                    onPress={openModal}
+                    onPress={() => openModal(item)}
                   >
                     <Text style={[styles.location_name,  
                       {borderBottomColor: item?.addresstype ? '#ddd' : '#fff'}]}>
                         {item ? 
-                          (item?.name || item?.addresstype?.state || item?.addresstype?.country ||"Location Not Found") : "No Address Data"
+                          (item?.name || item?.addresstype ||"Location Not Found") : "No Address Data"
                         }
                     </Text>
                     
@@ -227,7 +228,7 @@ function Index() {
 
       <BottomSheet />
 
-      {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} />}
+      {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} placeholder={selectedResult?.name} />}
 
     </View>
   );
