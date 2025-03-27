@@ -140,6 +140,12 @@ function SignIn() {
           <Text style={styles.text_signup}>Sign In</Text>
         </TouchableOpacity>
       </View>
+
+      {displayMessage && <View style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}>
+        <View style={styles.message_wrapper}>
+          <Text style={styles.message}>{showMessage}</Text>
+        </View>
+      </View>}
     </SafeAreaView>
   );
 }
