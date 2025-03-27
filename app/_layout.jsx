@@ -8,7 +8,7 @@ import 'react-native-reanimated';
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack initialRouteName="(tabs)" screenOptions={{ headerShown: false }}>
+      <Stack initialRouteName="AuthScreen" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="AuthScreen" options={{ headerShown: false }} />
         <Stack.Screen name="SignIn" options={{ headerShown: false }} />

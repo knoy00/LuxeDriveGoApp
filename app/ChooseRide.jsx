@@ -18,6 +18,10 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
         setIsActive(prev => prev === tab ? null : tab);
     }
 
+    const handleBackButton = () => {
+        
+    }
+
   return (
     <View style={styles.container}>
       <Modal
@@ -34,9 +38,9 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
         >
 
             <View style={{position: 'absolute', top: 50, backgroundColor: '#fff', width: '95%', paddingVertical: 5, paddingHorizontal: 40, borderRadius: 10}}>
-                <View style={{position: 'absolute', top: 15, left: 10}}>
+                <Pressable style={{position: 'absolute', top: 15, left: 10}}>
                     <ChevronLeft size={25} color={'#222'}/>
-                </View>
+                </Pressable>
                 <TextInput
                     placeholder={placeholder}
                     style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 12}}
@@ -119,7 +123,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                         </Pressable>
 
                         <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
-                            <Pressable style={styles.button_skeleton}>
+                            <Pressable style={[styles.button_skeleton]}>
                                 <Text style={styles.button_text_skeleton}>Confirm Ride</Text>
                             </Pressable>
                         </View>

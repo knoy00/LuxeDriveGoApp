@@ -1,10 +1,52 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
+import {loginUser, auth} from '../app/Utils/Firebase/Auth'
+import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
 
 function SignIn({}) {
   const router = useRouter();
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [user, setUser] = useState(null)
+  const [showMessage, setShowMessage] = useState('')
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [displayMessage, setDisplayMessage] = useState(false)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    })
+    return () => unsubscribe();
+  }, [user])
+
+
+  const handleLogin = async(e) => {
+      e.preventDefault()
+      console.log('Button Pressed')
+      setIsSignedIn(isSignedIn)
+      if(isSignedIn){
+        if(!email || !password){
+          showMessage('Please fill in all fields')
+          setDisplayMessage(true)
+          return;
+        }
+        try {
+          await loginUser(email, password)
+          setEmail('')
+          setPassword('')
+          router.replace('(tabs)')
+          
+        }
+        catch(error){
+          showMessage("Login failed:" + error)
+        }
+      }
+    }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,6 +67,8 @@ function SignIn({}) {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <TextInput
@@ -34,6 +78,8 @@ function SignIn({}) {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </View>
 
@@ -41,7 +87,7 @@ function SignIn({}) {
         <Text style={styles.forgot_password}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.sign_in_button} onPress={() => router.replace('/(tabs)')}>
+      <TouchableOpacity style={styles.sign_in_button} onPress={handleLogin}>
         <Text style={styles.text_sign_in}>Sign In</Text>
       </TouchableOpacity>
 
@@ -71,6 +117,14 @@ function SignIn({}) {
           <Text style={styles.text_signup}>Sign Up</Text>
         </TouchableOpacity>
       </View>
+
+      {displayMessage && <View style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}>
+        <View style={styles.message_wrapper}>
+          <Text style={styles.message}>{showMessage}</Text>
+        </View>
+      </View>}
+
+      
     </SafeAreaView>
   );
 }
@@ -200,5 +254,22 @@ const styles = StyleSheet.create({
     color: '#f40808',
     fontSize: 20,
     fontWeight: '700',
+  },
+  message_wrapper: {
+    width: '80%',
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#f50000',
+    borderRadius: 10,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  message: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+    textAlign: 'center',
+    padding: 10
   },
 });

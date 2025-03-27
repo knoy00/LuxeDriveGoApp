@@ -1,11 +1,59 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
+import {regiserUser, auth} from '../app/Utils/Firebase/Auth'
+import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
+
 
 function SignIn() {
   const router = useRouter();
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [user, setUser] = useState(null)
+  const [showMessage, setShowMessage] = useState('')
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [displayMessage, setDisplayMessage] = useState(false)
+  
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    })
+    return () => unsubscribe();
+  }, [user])
+
+  const handleRegisteration = async(e) => {
+    e.preventDefault()
+    if(!isSignedIn) {
+      if(!name || !password || !email){
+        setShowMessage('Please fill in all fields')
+        return;
+      }
+      if(password.length < 0 ){
+        setShowMessage('Password must be at least 6 characters')
+        return;
+      }
+
+      try {
+        await regiserUser(email, password, name)
+        setShowMessage('User registered successfully')
+        setName('')
+        setPassword('')
+        setConfirmPassword('')
+        setEmail('')
+        setIsSignedIn(true)
+        router.navigate('(tabs)')
+      }catch(error){
+        showMessage("Error:" + error)
+      }
+    }
+  }
+
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,6 +73,7 @@ function SignIn() {
           placeholderTextColor="#717171"
           autoCapitalize="none"
           autoCorrect={false}
+          value={name}
         />
 
         <TextInput
@@ -34,6 +83,9 @@ function SignIn() {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+
         />
 
         <TextInput
@@ -43,6 +95,8 @@ function SignIn() {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <TextInput
           style={styles.input_text}
@@ -51,10 +105,12 @@ function SignIn() {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </View>
 
-      <TouchableOpacity style={styles.sign_in_button}>
+      <TouchableOpacity style={styles.sign_in_button} onPress={handleRegisteration}>
         <Text style={styles.text_sign_in}>Sign Up</Text>
       </TouchableOpacity>
 

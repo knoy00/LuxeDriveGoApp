@@ -10,7 +10,7 @@ function SplashScreen({}) {
 
     useEffect(() => {
         setTimeout(() => {
-            router.replace('(tabs)')
+            router.replace('AuthScreen')
         }, 500)
     }, [])
   return (
