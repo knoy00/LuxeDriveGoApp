@@ -45,6 +45,15 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "firebaseApiKey": "AIzaSyC8pSlMmzqFsptXrACdyhtcKfqRJmiViXY",
+      "firebaseAuthDomain": "luxedrivego.firebaseapp.com",
+      "firebaseProjectId": "luxedrivego",
+      "firebaseStorageBucket": "luxedrivego.firebasestorage.app",
+      "firebaseMessagingSenderId": "703719786559",
+      "firebaseAppId": "1:703719786559:web:9446461a1a8b13b08a908a",
+      "firebaseMeasurementId": "G-8E93N716TF"
     }
   }
 }

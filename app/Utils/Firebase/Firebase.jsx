@@ -1,24 +1,31 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+// Import necessary functions
+import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
+import Constants from "expo-constants";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_MY_API,
-  authDomain: process.env.REACT_APP_MY_AUTH,
-  projectId: process.env.REACT_APP_MY_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_MY_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MY_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_MY_APP_ID,
-  measurementId: process.env.REACT_APP_MY_MEASUREMENT_ID
-};
+    apiKey: Constants.expoConfig.extra.firebaseApiKey,
+    authDomain: Constants.expoConfig.extra.firebaseAuthDomain,
+    projectId: Constants.expoConfig.extra.firebaseProjectId,
+    storageBucket: Constants.expoConfig.extra.firebaseStorageBucket,
+    messagingSenderId: Constants.expoConfig.extra.firebaseMessagingSenderId,
+    appId: Constants.expoConfig.extra.firebaseAppId,
+    measurementId: Constants.expoConfig.extra.firebaseMeasurementId
+  };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Ensure Firebase is only initialized once
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
+// Initialize analytics only if in a browser environment
+let analytics;
+if (typeof window !== "undefined") {
+  analytics = getAnalytics(app);
+}
 
-export {app, analytics}
+// Initialize authentication
+const auth = getAuth(app);
+
+export { app, analytics, auth };
