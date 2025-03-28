@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
-// import {registerUser, auth} from '../app/Utils/Firebase/Auth'
-// import { onAuthStateChanged } from 'firebase/auth';
 import { MotiView } from 'moti';
 import { Eye } from 'lucide-react-native';
 import { EyeOff } from 'lucide-react-native';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+
 import {FIREBASE_AUTH} from '../app/Utils/Firebase/Firebase'
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import { registerUser } from './Utils/Firebase/Auth';
 
 
 function SignIn() {
@@ -20,7 +20,6 @@ function SignIn() {
   const [name, setName] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState('')
-  const [isSignedIn, setIsSignedIn] = useState(false)
   const [displayMessage, setDisplayMessage] = useState(false)
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
@@ -55,82 +54,69 @@ function SignIn() {
   };
 
 
-  // const handleSignUp = async () => {
-  //   // Validation
-  //   if (!name) {
-  //     setNameMsg(true);
-  //   } else {
-  //     setNameMsg(false);
-  //   }
+  const handleSignUp = async () => {
+    if (!name) {
+      setNameMsg(true);
+    } else {
+      setNameMsg(false);
+    }
   
-  //   if (!email) {
-  //     setEmailMsg(true);
-  //   } else {
-  //     setEmailMsg(false);
-  //   }
+    if (!email) {
+      setEmailMsg(true);
+    } else {
+      setEmailMsg(false);
+    }
   
-  //   if (!password) {
-  //     setPasswordMsg(true);
-  //   } else {
-  //     setPasswordMsg(false);
-  //   }
+    if (!password) {
+      setPasswordMsg(true);
+    } else {
+      setPasswordMsg(false);
+    }
   
-  //   if (!confirmPassword) {
-  //     setConfirmPassMsg(true);
-  //   } else {
-  //     setConfirmPassMsg(false);
-  //   }
+    if (!confirmPassword) {
+      setConfirmPassMsg(true);
+    } else {
+      setConfirmPassMsg(false);
+    }
   
-  //   // Check if any validation failed
-  //   if (!name || !email || !password || !confirmPassword) {
-  //     return; // Exit early
-  //   }
+    if (!name || !email || !password || !confirmPassword) {
+      return;
+    }
   
-  //   // Password-specific validations
-  //   if (password.length < 8 || confirmPassword.length < 8) {
-  //     setPasswordMsg(true);
-  //     setConfirmPassMsg(true);
-  //     return; // Exit if password length is insufficient
-  //   }
+    if (password.length < 8 || confirmPassword.length < 8) {
+      setPasswordMsg(true);
+      setConfirmPassMsg(true);
+      return; 
+    }
   
-  //   if (password !== confirmPassword) {
-  //     setPasswordMsg(true);
-  //     setConfirmPassMsg(true);
-  //     return; // Exit if passwords don't match
-  //   }
+    if (password !== confirmPassword) {
+      setPasswordMsg(true);
+      setConfirmPassMsg(true);
+      return; 
+    }
   
-  //   // Proceed with user registration
-  //   try {
-  //     await registerUser(email, password);
-  //     setDisplayMessage(true);
-  //     setShowMessage("User Registered Successfully");
-  
-  //     setTimeout(() => {
-  //       setDisplayMessage(false);
-  //       setShowMessage("");
-  //       router.replace("/(tabs)");
-  //     }, 2000);
-  //   } catch (error) {
-  //     console.error("Registration Error:", error.message);
-  //     setDisplayMessage(true);
-  //     setShowMessage(`Registration Failure: ${error.message}, code: ${error.code}}`);
-  
-  //     setTimeout(() => {
-  //       setDisplayMessage(false);
-  //       setShowMessage("");
-  //     }, 3000);
-  //   }
-  // };
-  
-  const signIn = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-      console.log("Registration Success");
+      await registerUser(email, password);
+      setDisplayMessage(true);
+      setShowMessage("User Registered Successfully");
+  
+      setTimeout(() => {
+        setDisplayMessage(false);
+        setShowMessage("");
+        router.replace("/(tabs)");
+      }, 2000);
+    } catch (error) {
+      console.error("Registration Error:", error.message);
+      setDisplayMessage(true);
+      setShowMessage(`Registration Failure: ${error.message}, code: ${error.code}}`);
+  
+      setTimeout(() => {
+        setDisplayMessage(false);
+        setShowMessage("");
+      }, 3000);
     }
-    catch(error){
-      console.log("Registration Error", error);
-    }
-  }
+  };
+  
   
   return (
     <SafeAreaView style={styles.container}>
@@ -154,16 +140,24 @@ function SignIn() {
           onChangeText={(text) => setName(text)}
         />
 
-        <TextInput
+        {/* <TextInput
           style={[styles.input_text, emailMsg && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
           placeholder="Email"
           placeholderTextColor="#717171"
           // keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
+          // autoCapitalize="none"
+          // autoCorrect={false}
           value={email}
           onChange={(text) => setEmail(text)}
 
+        /> */}
+
+        <TextInput
+          placeholder='Email' 
+          placeholderTextColor={'#fff'} 
+          value={email} 
+          onChangeText={(text) => setEmail(text)} 
+          style={[styles.input_text, emailMsg && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
         />
 
         <TextInput
@@ -177,6 +171,7 @@ function SignIn() {
           onChangeText={(text) => setPassword(text)}
           
         />
+
         <Pressable style={{position: 'absolute', right: 30, top: 150}} onPress={togglePasswordVisibility}>
           {!hidePassword ? <Eye size={25} color="white" /> : <EyeOff size={25} color="white" />}
         </Pressable>
@@ -197,7 +192,7 @@ function SignIn() {
         </Pressable>
       </View>
 
-      <TouchableOpacity style={styles.sign_in_button} onPress={signIn}>
+      <TouchableOpacity style={styles.sign_in_button} onPress={handleSignUp}>
         <Text style={styles.text_sign_in}>Sign Up</Text>
       </TouchableOpacity>
 
@@ -383,4 +378,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 10
   },
+
 });
