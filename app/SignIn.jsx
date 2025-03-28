@@ -1,21 +1,31 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
 import {loginUser, auth} from '../app/Utils/Firebase/Auth'
 import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
+import { Eye } from 'lucide-react-native';
+import { EyeOff } from 'lucide-react-native';
+import { MotiView } from 'moti';
+
 
 function SignIn({}) {
   const router = useRouter();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [name, setName] = useState('')
   const [user, setUser] = useState(null)
   const [showMessage, setShowMessage] = useState('')
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [displayMessage, setDisplayMessage] = useState(false)
+  const [hidePassword, setHidePassword] = useState(true);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [borderColor, setBorderColor] = useState('#cecece');
+
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -25,28 +35,107 @@ function SignIn({}) {
   }, [user])
 
 
-  const handleLogin = async(e) => {
-      e.preventDefault()
-      console.log('Button Pressed')
-      setIsSignedIn(isSignedIn)
-      if(isSignedIn){
-        if(!email || !password){
-          showMessage('Please fill in all fields')
-          setDisplayMessage(true)
-          return;
-        }
-        try {
-          await loginUser(email, password)
-          setEmail('')
-          setPassword('')
-          router.replace('(tabs)')
-          
-        }
-        catch(error){
-          showMessage("Login failed:" + error)
-        }
-      }
+  useEffect(() => {
+      console.log("Password:", password);
+      console.log("Email:", email);
+    }, [password, email]);
+
+
+  // const handleLogin = async () => {
+  //   console.log("pressed")
+  //   let isSet = false;
+
+  //   if(!email) setEmailError(true);
+  //   if(!password) setPasswordError(true);
+   
+  //   if(email && password){
+  //     setEmailError(false);
+  //     setPasswordError(false);
+      
+  //     return;
+  //     console.log("Isset")
+  //   }
+
+  //   isSet = true;
+    
+
+  //   if(isSet){
+  //     try {
+  //       await loginUser(email, password)
+  //       console.log('Login successful');
+  //       setDisplayMessage(true);
+  //       setShowMessage("Login successful")
+  //       setEmail('')
+  //       setPassword('')
+  //       setTimeout(() => {
+  //         setDisplayMessage(false);
+  //         setShowMessage('')
+  //         setIsSignedIn(true);
+  //         router.replace('(tabs)')
+  //       }, 2000)
+  //     }
+  //     catch(error){
+  //       console.log(error);
+  //       setDisplayMessage(true);
+  //       showMessage( `Login Failed: ${error.message}`)
+  
+  //       setTimeout(() => {
+  //         setDisplayMessage(false);
+  //         setShowMessage('')
+  //       }, 2000)
+  //     }
+  //   }
+    
+  // }
+
+  const handleLogin = async () => {
+    console.log("pressed");
+  
+    // Validation
+    if (!email) {
+      setEmailError(true);
+      setShowMessage("Email is required");
+      return;
+    } else {
+      setEmailError(false);
     }
+  
+    if (!password) {
+      setPasswordError(true);
+      setShowMessage("Password is required");
+      return;
+    } else {
+      setPasswordError(false);
+    }
+  
+    try {
+      // Attempt login
+      const response = await loginUser(email, password);
+      console.log("Login successful:", response);
+  
+      // Success feedback
+      setDisplayMessage(true);
+      setShowMessage("Login successful");
+      setEmail('');
+      setPassword('');
+      setTimeout(() => {
+        setDisplayMessage(false);
+        setShowMessage('');
+        setIsSignedIn(true);
+        router.replace('(tabs)');
+      }, 2000);
+    } catch (error) {
+      // Error feedback
+      console.error("Login failed:", error.message);
+      setDisplayMessage(true);
+      setShowMessage(`Login Failed: ${error.message}`);
+      setTimeout(() => {
+        setDisplayMessage(false);
+        setShowMessage('');
+      }, 2000);
+    }
+  };
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,28 +148,32 @@ function SignIn({}) {
         <Text style={styles.welcome_text}>Welcome Back!</Text>
       </View>
 
-      <View style={styles.input_wrapper}>
+      <View style={[styles.input_wrapper]}>
         <TextInput
-          style={styles.input_text}
+          style={[styles.input_text, emailError && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
           placeholder="Email or Phone Number"
           placeholderTextColor="#ddd"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChangeText={(text) => setEmail(text)}
         />
 
         <TextInput
-          style={styles.input_text}
+          style={[styles.input_text, passwordError && !password ? {borderColor: 'red'} : {borderColor: borderColor}]}
           placeholder="Password"
           placeholderTextColor="#ddd"
-          secureTextEntry={true}
+          secureTextEntry={hidePassword}
           autoCapitalize="none"
           autoCorrect={false}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChangeText={(text) => setPassword(text)}
         />
+
+        <Pressable style={{position: 'absolute', right: 30, top: 80}} onPress={togglePasswordVisibility}>
+          {!hidePassword ? <Eye size={25} color="white" /> : <EyeOff size={25} color="white" />}
+        </Pressable>
       </View>
 
       <TouchableOpacity>
@@ -118,11 +211,21 @@ function SignIn({}) {
         </TouchableOpacity>
       </View>
 
-      {displayMessage && <View style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}>
+      {/* {displayMessage && <View style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}>
         <View style={styles.message_wrapper}>
           <Text style={styles.message}>{showMessage}</Text>
         </View>
-      </View>}
+      </View>} */}
+
+      {displayMessage && <MotiView style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}
+        from={{opacity: 0, translateY: -50}}
+        animate={{opacity: 1, translateY: 0}}
+        transition={{ type: 'spring', stiffness: 120, damping: 10 }}
+      >
+        <View style={styles.message_wrapper}>
+          <Text style={styles.message}>{showMessage}</Text>
+        </View>
+      </MotiView>}
 
       
     </SafeAreaView>
@@ -259,14 +362,14 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingHorizontal: 20,
     marginBottom: 20,
-    backgroundColor: '#f50000',
+    backgroundColor: '#fff',
     borderRadius: 10,
     paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   message: {
-    color: '#fff',
+    color: '#000',
     fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',

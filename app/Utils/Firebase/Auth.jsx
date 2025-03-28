@@ -1,6 +1,7 @@
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from 'firebase/auth';
 import {app} from './Firebase'
 
+
 const auth = getAuth(app);
 
 const registerUser = (email, password) => {

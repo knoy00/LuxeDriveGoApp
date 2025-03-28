@@ -1,51 +1,55 @@
-import React, { useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
+import React, { useState } from 'react'
+import {FIREBASE_AUTH} from '../Utils/Firebase/Firebase'
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import { create } from 'react-test-renderer';
+
+
 
 const Trips = () => {
-  const [visible, setVisible] = useState(false);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const auth = FIREBASE_AUTH;
+
+  const signIn = async () => {
+    try{
+      await createUserWithEmailAndPassword(auth, email, password)
+      console.log("Registration Success");
+    }
+    catch (error){
+      console.error(error);
+    }
+  }
   return (
     <View style={styles.container}>
-      {/* Button to Show Bottom Sheet */}
-      <TouchableOpacity onPress={() => setVisible(true)} style={styles.button}>
-        <Text style={styles.buttonText}>Open Bottom Sheet</Text>
-      </TouchableOpacity>
-
-      {/* Bottom Sheet Modal */}
-      <Modal
-        transparent
-        animationType="slide"
-        visible={visible}
-        onRequestClose={() => setVisible(false)}
-      >
-        <View style={styles.overlay}>
-          <View style={styles.bottomSheet}>
-            <Text style={styles.title}>This is a Bottom Sheet</Text>
-            <Text style={styles.title}>This is a Bottom Sheet</Text>
-            <TouchableOpacity onPress={() => setVisible(false)} style={styles.button}>
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
-            <Text style={styles.title}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam ipsam libero hic fuga adipisci dicta, quia sapiente eos reiciendis iste fugit nobis consectetur cum temporibus ratione saepe, eaque possimus deserunt.</Text>
-          </View>
-        </View>
-      </Modal>
+      <TextInput placeholder='Email' value={email} onChangeText={(text) => setEmail(text)} style={styles.textField}/>
+      <TextInput placeholder='Password' value={password} onChangeText={(text) => setPassword(text)} style={styles.textField}></TextInput>
+      <Pressable onPress={signIn}>
+        <Text style={{color: 'blue', fontWeight: 'bold'}}>Sign Up</Text>
+      </Pressable>
     </View>
-  );
-};
+  )
+}
+
+export default Trips
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-  button: { backgroundColor: "#222", padding: 10, borderRadius: 5 },
-  buttonText: { color: "#333", fontSize: 16 },
-  overlay: { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.5)" },
-  bottomSheet: {
-    backgroundColor: "white",
+  container: {
+    flex :1,
+    backgroundColor: '#F8F8F8',
     padding: 20,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  title: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
-});
-
-export default Trips;
+  textField: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1, 
+    borderColor: '#111',
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  }
+})

@@ -39,7 +39,7 @@
       [
         "expo-local-authentication",
         {
-          "android": "Allow ${luxedrivegoapp} to use Face ID."
+          "android": "Allow luxedrivegoapp to use Face ID."
         }
       ]
     ],

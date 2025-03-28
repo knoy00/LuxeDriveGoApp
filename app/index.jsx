@@ -10,7 +10,7 @@ function SplashScreen({}) {
 
     useEffect(() => {
         setTimeout(() => {
-            router.replace('AuthScreen')
+            router.replace('SignUp')
         }, 500)
     }, [])
   return (

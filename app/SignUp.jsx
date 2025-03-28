@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
-import {registerUser, auth} from '../app/Utils/Firebase/Auth'
-import { onAuthStateChanged, updateCurrentUser } from 'firebase/auth';
+// import {registerUser, auth} from '../app/Utils/Firebase/Auth'
+// import { onAuthStateChanged } from 'firebase/auth';
 import { MotiView } from 'moti';
+import { Eye } from 'lucide-react-native';
+import { EyeOff } from 'lucide-react-native';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {FIREBASE_AUTH} from '../app/Utils/Firebase/Firebase'
 
 
 function SignIn() {
@@ -18,19 +22,23 @@ function SignIn() {
   const [message, setMessage] = useState('')
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [displayMessage, setDisplayMessage] = useState(false)
-  const [hideMessage, setHideMessage] = useState(false);
+  const [hidePassword, setHidePassword] = useState(true);
+  const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
   const [nameMsg, setNameMsg] = useState(false);
   const [passwordMsg, setPasswordMsg] = useState(false);
   const [emailMsg, setEmailMsg] = useState(false);
   const [confirmPassMsg, setConfirmPassMsg] = useState(false);
   const [borderColor, setBorderColor] = useState('#cecece');
+  const [showMessage, setShowMessage] = useState("");
+
+  const auth = FIREBASE_AUTH;
   
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    })
-    return unsubscribe;
-  }, [])
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   })
+  //   return () =>  unsubscribe();
+  // }, [user])
 
   useEffect(() => {
     console.log("Password:", password);
@@ -38,50 +46,91 @@ function SignIn() {
   }, [password, confirmPassword]);
   
 
-  // const showMessage = (msg) => {
-  //   setMessage(msg);
-  //   setTimeout(() => {
-  //     setMessage("");
-  //     setHideMessage(false);
-  //   }, 1000)
-  // }
-
-  const handleSignUp =  () => {
-    // const trimmedName = name.trim()
-    if(!name){
-      setNameMsg(true)
-      // if(name){
-      //   setNameMsg(false)
-      //   return;
-      // }
-    }
-    if(!email){
-      setEmailMsg(true)
-    }  
-    if(!password){
-      setPasswordMsg(true)
-    } 
-    if(!confirmPassword){
-      setConfirmPassMsg(true)
-    } 
-    if(name && email && password && confirmPassword){
-      setConfirmPassMsg(false)
-      setEmailMsg(false)
-      setNameMsg(false)
-      setPasswordMsg(false)
-      if(password !== confirmPassword){
-        console.log('Passwords do not match')
-        setPasswordMsg(true)
-        setConfirmPassMsg(true)
-      }
-      else{
-        console.log('Button Pressed, confam')
-
-      }
-    } 
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
   };
   
+  const toggleConfirmPasswordVisibility = () => {
+    setHideConfirmPassword(!hideConfirmPassword);
+  };
 
+
+  // const handleSignUp = async () => {
+  //   // Validation
+  //   if (!name) {
+  //     setNameMsg(true);
+  //   } else {
+  //     setNameMsg(false);
+  //   }
+  
+  //   if (!email) {
+  //     setEmailMsg(true);
+  //   } else {
+  //     setEmailMsg(false);
+  //   }
+  
+  //   if (!password) {
+  //     setPasswordMsg(true);
+  //   } else {
+  //     setPasswordMsg(false);
+  //   }
+  
+  //   if (!confirmPassword) {
+  //     setConfirmPassMsg(true);
+  //   } else {
+  //     setConfirmPassMsg(false);
+  //   }
+  
+  //   // Check if any validation failed
+  //   if (!name || !email || !password || !confirmPassword) {
+  //     return; // Exit early
+  //   }
+  
+  //   // Password-specific validations
+  //   if (password.length < 8 || confirmPassword.length < 8) {
+  //     setPasswordMsg(true);
+  //     setConfirmPassMsg(true);
+  //     return; // Exit if password length is insufficient
+  //   }
+  
+  //   if (password !== confirmPassword) {
+  //     setPasswordMsg(true);
+  //     setConfirmPassMsg(true);
+  //     return; // Exit if passwords don't match
+  //   }
+  
+  //   // Proceed with user registration
+  //   try {
+  //     await registerUser(email, password);
+  //     setDisplayMessage(true);
+  //     setShowMessage("User Registered Successfully");
+  
+  //     setTimeout(() => {
+  //       setDisplayMessage(false);
+  //       setShowMessage("");
+  //       router.replace("/(tabs)");
+  //     }, 2000);
+  //   } catch (error) {
+  //     console.error("Registration Error:", error.message);
+  //     setDisplayMessage(true);
+  //     setShowMessage(`Registration Failure: ${error.message}, code: ${error.code}}`);
+  
+  //     setTimeout(() => {
+  //       setDisplayMessage(false);
+  //       setShowMessage("");
+  //     }, 3000);
+  //   }
+  // };
+  
+  const signIn = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+      console.log("Registration Success");
+    }
+    catch(error){
+      console.log("Registration Error", error);
+    }
+  }
   
   return (
     <SafeAreaView style={styles.container}>
@@ -103,15 +152,13 @@ function SignIn() {
           autoCorrect={false}
           value={name}
           onChangeText={(text) => setName(text)}
-          onBlur={() => setBorderColor(name.length < 1 ? 'red' : '#cecece')}
-        
         />
 
         <TextInput
           style={[styles.input_text, emailMsg && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
-          placeholder="Email or Phone Number"
+          placeholder="Email"
           placeholderTextColor="#717171"
-          keyboardType="email-address"
+          // keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
           value={email}
@@ -121,28 +168,36 @@ function SignIn() {
 
         <TextInput
           style={[styles.input_text, passwordMsg && !password || password !== confirmPassword ? {borderColor: 'red'} : {borderColor: borderColor}]}
-          placeholder="Password"
+          placeholder="Password (8+ characters)"
           placeholderTextColor="#717171"
-          secureTextEntry={true}
+          secureTextEntry={hidePassword}
           autoCapitalize="none"
           autoCorrect={false}
           value={password}
           onChangeText={(text) => setPassword(text)}
           
         />
+        <Pressable style={{position: 'absolute', right: 30, top: 150}} onPress={togglePasswordVisibility}>
+          {!hidePassword ? <Eye size={25} color="white" /> : <EyeOff size={25} color="white" />}
+        </Pressable>
+
         <TextInput
           style={[styles.input_text, confirmPassMsg && !confirmPassword || password !== confirmPassword ? {borderColor: 'red'} : {borderColor: borderColor}]}
-          placeholder="Confirm Password"
+          placeholder="Confirm Password (8+ characters)"
           placeholderTextColor="#717171"
-          secureTextEntry={true}
+          secureTextEntry={hideConfirmPassword}
           autoCapitalize="none"
           autoCorrect={false}
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
         />
+
+        <Pressable style={{position: 'absolute', right: 30, top: 220}} onPress={toggleConfirmPasswordVisibility}>
+          {!hideConfirmPassword ? <Eye size={25} color="white" /> : <EyeOff size={25} color="white" />}
+        </Pressable>
       </View>
 
-      <TouchableOpacity style={styles.sign_in_button} onPress={handleSignUp}>
+      <TouchableOpacity style={styles.sign_in_button} onPress={signIn}>
         <Text style={styles.text_sign_in}>Sign Up</Text>
       </TouchableOpacity>
 
@@ -173,23 +228,13 @@ function SignIn() {
         </TouchableOpacity>
       </View>
 
-      {/* {displayMessage && <MotiView style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}
+      {displayMessage && <MotiView style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}
         from={{opacity: 0, translateY: -50}}
         animate={{opacity: 1, translateY: 0}}
         transition={{ type: 'spring', stiffness: 120, damping: 10 }}
       >
         <View style={styles.message_wrapper}>
           <Text style={styles.message}>{showMessage}</Text>
-        </View>
-      </MotiView>} */}
-
-      {hideMessage && <MotiView style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}
-        // from={{opacity: 0, translateY: -50}}
-        // animate={hideMessage ? {opacity: 0, translateY: -50} : {opacity: 1, translateY: 0}}
-        // transition={{ type: 'spring', stiffness: 120, damping: 10 }}
-      >
-        <View style={styles.message_wrapper}>
-          <Text style={styles.message}>{message}</Text>
         </View>
       </MotiView>}
     </SafeAreaView>
@@ -219,8 +264,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 70,
     left: 20,
-    borderWidth: 1,
-    borderColor: '#5d5d5d',
+    borderWidth: 2,
+    borderColor: '#888',
     borderRadius: 10,
     width: 40,
     height: 40,
@@ -314,25 +359,25 @@ const styles = StyleSheet.create({
   no_account_text: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '500',
   },
   text_signup: {
     color: '#f40808',
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '500',
   },
   message_wrapper: {
     width: '80%',
     paddingHorizontal: 20,
     marginBottom: 20,
-    backgroundColor: '#f50000',
+    backgroundColor: '#fff',
     borderRadius: 10,
     paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
   message: {
-    color: '#fff',
+    color: '#111',
     fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',
