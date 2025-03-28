@@ -10,18 +10,18 @@ function SplashScreen({}) {
 
     useEffect(() => {
         setTimeout(() => {
-            router.replace('SignUp')
-        }, 500)
+            router.replace('AuthScreen',)
+        }, 1500)
     }, [])
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <View style={styles.container}>
-        <Image 
-            style={{width: 300, height: 300}}
-            resizeMode='contain'
-            source={require('../assets/icons/LuxeDrive_white.png')}
-        />        
-    </View>
+        <View style={styles.container}>
+            <Image 
+                style={{width: 300, height: 300}}
+                resizeMode='contain'
+                source={require('../assets/icons/LuxeDrive_white.png')}
+            />        
+        </View>
     </GestureHandlerRootView>
 
   )

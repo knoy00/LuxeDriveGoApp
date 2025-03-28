@@ -17,7 +17,7 @@ function AuthScreen({}) {
             </TouchableOpacity>
 
             <View>
-                <Text style={styles.text_version}>LuxeDrive Group V 1.1.2</Text>
+                <Text style={styles.text_version}>LuxeDrive Group  v 1.0.1.2</Text>
             </View>
 
         </View>

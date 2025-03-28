@@ -103,6 +103,10 @@ function SignIn() {
       setTimeout(() => {
         setDisplayMessage(false);
         setShowMessage("");
+        setName('')
+        setPassword('')
+        setConfirmPassword('')
+        setEmail('')
         router.replace("/(tabs)");
       }, 2000);
     } catch (error) {
@@ -140,25 +144,25 @@ function SignIn() {
           onChangeText={(text) => setName(text)}
         />
 
-        {/* <TextInput
+        <TextInput
           style={[styles.input_text, emailMsg && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
           placeholder="Email"
           placeholderTextColor="#717171"
-          // keyboardType="email-address"
-          // autoCapitalize="none"
-          // autoCorrect={false}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
           value={email}
-          onChange={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
 
-        /> */}
+        />
 
-        <TextInput
+        {/* <TextInput
           placeholder='Email' 
           placeholderTextColor={'#fff'} 
           value={email} 
           onChangeText={(text) => setEmail(text)} 
           style={[styles.input_text, emailMsg && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
-        />
+        /> */}
 
         <TextInput
           style={[styles.input_text, passwordMsg && !password || password !== confirmPassword ? {borderColor: 'red'} : {borderColor: borderColor}]}

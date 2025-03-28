@@ -36,62 +36,15 @@ function SignIn({}) {
 
 
   useEffect(() => {
-      console.log("Password:", password);
-      console.log("Email:", email);
-    }, [password, email]);
+    console.log("Password:", password);
+    console.log("Email:", email);
+  }, [password, email]);
 
 
-  // const handleLogin = async () => {
-  //   console.log("pressed")
-  //   let isSet = false;
-
-  //   if(!email) setEmailError(true);
-  //   if(!password) setPasswordError(true);
-   
-  //   if(email && password){
-  //     setEmailError(false);
-  //     setPasswordError(false);
-      
-  //     return;
-  //     console.log("Isset")
-  //   }
-
-  //   isSet = true;
-    
-
-  //   if(isSet){
-  //     try {
-  //       await loginUser(email, password)
-  //       console.log('Login successful');
-  //       setDisplayMessage(true);
-  //       setShowMessage("Login successful")
-  //       setEmail('')
-  //       setPassword('')
-  //       setTimeout(() => {
-  //         setDisplayMessage(false);
-  //         setShowMessage('')
-  //         setIsSignedIn(true);
-  //         router.replace('(tabs)')
-  //       }, 2000)
-  //     }
-  //     catch(error){
-  //       console.log(error);
-  //       setDisplayMessage(true);
-  //       showMessage( `Login Failed: ${error.message}`)
-  
-  //       setTimeout(() => {
-  //         setDisplayMessage(false);
-  //         setShowMessage('')
-  //       }, 2000)
-  //     }
-  //   }
-    
-  // }
 
   const handleLogin = async () => {
     console.log("pressed");
   
-    // Validation
     if (!email) {
       setEmailError(true);
       setShowMessage("Email is required");
@@ -109,11 +62,8 @@ function SignIn({}) {
     }
   
     try {
-      // Attempt login
       const response = await loginUser(email, password);
-      console.log("Login successful:", response);
   
-      // Success feedback
       setDisplayMessage(true);
       setShowMessage("Login successful");
       setEmail('');
@@ -125,14 +75,27 @@ function SignIn({}) {
         router.replace('(tabs)');
       }, 2000);
     } catch (error) {
-      // Error feedback
-      console.error("Login failed:", error.message);
+      // let errorMessage = "An error occurred";
+      // if(error.code === 'auth/invalid-email' || error.code === 'auth/wrong-password') {
+
+      //   errorMessage = "Invalid email or password";
+
+      //   setDisplayMessage(true);
+      //   setShowMessage(errorMessage);
+
+      //   setTimeout(() => {
+      //     setDisplayMessage(false);
+      //     setShowMessage('');
+      //   }, 2500)
+      //   return;
+      // }
+      console.log(`error: ${error}`);
       setDisplayMessage(true);
       setShowMessage(`Login Failed: ${error.message}`);
       setTimeout(() => {
         setDisplayMessage(false);
         setShowMessage('');
-      }, 2000);
+      }, 1200);
     }
   };
   
@@ -151,7 +114,7 @@ function SignIn({}) {
       <View style={[styles.input_wrapper]}>
         <TextInput
           style={[styles.input_text, emailError && !email ? {borderColor: 'red'} : {borderColor: borderColor}]}
-          placeholder="Email or Phone Number"
+          placeholder="Email"
           placeholderTextColor="#ddd"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -211,11 +174,7 @@ function SignIn({}) {
         </TouchableOpacity>
       </View>
 
-      {/* {displayMessage && <View style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}>
-        <View style={styles.message_wrapper}>
-          <Text style={styles.message}>{showMessage}</Text>
-        </View>
-      </View>} */}
+      
 
       {displayMessage && <MotiView style={{ position: 'absolute', width: '100%', justifyContent: 'center', alignItems: 'center', top: 90}}
         from={{opacity: 0, translateY: -50}}
@@ -351,12 +310,12 @@ const styles = StyleSheet.create({
   no_account_text: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '500',
   },
   text_signup: {
     color: '#f40808',
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '500',
   },
   message_wrapper: {
     width: '80%',
