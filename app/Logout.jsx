@@ -1,14 +1,35 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useRouter} from 'expo-router';
+import { signOut } from 'firebase/auth';
+import { FIREBASE_AUTH } from './Utils/Firebase/Firebase';
 
 const Logout = () => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(true);
 
+    const auth = FIREBASE_AUTH
+
     const handleClose = () => {
         setIsOpen(false);
+    }
+
+    // useEffect(() => {
+    //     console.log()
+    // })
+
+    const logout = async () => {
+        console.log("Pressed")  
+       const response = await signOut(auth)
+       console.log("Worked")
+
+       setTimeout(() => {
+            while (router.canGoBack()) { 
+                router.back();
+            }
+            router.replace('/AuthScreen');
+       },1500)
     }
   return (
     <>
@@ -16,10 +37,10 @@ const Logout = () => {
         <View style={styles.logout_container}>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
 
-                <View style={styles.option_name_wrapper}>
+                <Pressable style={styles.option_name_wrapper} >
                     <Icon name="exclamation" color="red" size={20} />
                     <Text style={styles.option_text}>Logout</Text>
-                </View>
+                </Pressable>
 
                 <Icon name="close" size={20} color="#fff" onPress={handleClose}/>
             </View>
@@ -31,7 +52,7 @@ const Logout = () => {
                     <Text style={{color: '#fff', fontWeight: 'bold', padding: 10, textAlign: 'center'}}>Cancel</Text>
                 </Pressable>
 
-                <Pressable onPress={() => router.replace('/AuthScreen')} style={{backgroundColor: '#222', padding: 10, borderRadius: 5, width: '45%' }}>
+                <Pressable onPress={logout} style={{backgroundColor: '#222', padding: 10, borderRadius: 5, width: '45%' }}>
                     <Text style={{color: '#fff', fontWeight: 'bold', padding: 10, textAlign: 'center'}}>Logout</Text>
                 </Pressable>
 
