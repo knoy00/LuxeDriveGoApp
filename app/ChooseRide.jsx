@@ -1,18 +1,19 @@
 import { StyleSheet, Text, View, Modal, Pressable, Image, TextInput} from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {X, Bus, ChevronRight, ChevronLeft } from 'lucide-react-native';
 import { MotiView } from 'moti';
 import { useRouter } from 'expo-router';
+import { ScreenContext } from './ScreenContext';
 
 const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
+    const {setLocateDriver} = useContext(ScreenContext)
     const router = useRouter();
 
     const [isActive, setIsActive] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const [destination, setDestination] = useState(placeholderDestination);
-
-    const [locateDriver, setLocateDriver] = useState(false);
+    
 
 
     useEffect(() => {
@@ -31,8 +32,7 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
 
     const confirmRide = () => {
         setIsVisible(false);
-        setIsLocateDriver(true);
-        router.push('/LocateDriver');
+        setLocateDriver(true);
     }
 
   return (
@@ -235,7 +235,7 @@ export default ChooseRide
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0)',
+        backgroundColor: 'rgba(0, 0, 0, 0) ',
         alignItems: 'center',
         justifyContent: 'center',
     },

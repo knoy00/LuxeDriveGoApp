@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, TextInput, StyleSheet, Pressable, Keyboard, FlatList, Text, ScrollView,Image } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -111,6 +111,7 @@ function Index() {
 
   const [isActive, setIsActive] = useState(null);
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+  // const [locateDriver, setLocateDriver] = useState(false);
 
 
   const translateY = useSharedValue(0);
@@ -378,7 +379,7 @@ function Index() {
 
       {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} placeholderDestination={selectedResult?.name} />}
 
-      {<LocateDriver />}
+      <LocateDriver />
 
     </View>
   );
