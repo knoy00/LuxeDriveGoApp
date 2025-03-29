@@ -19,15 +19,58 @@ function Index() {
   const [index, setIndex] = useState(0);
 
   const routeCoords = [
-    {latitude: 5.6837619, longitude: -0.1090878},
-    {latitude: 5.6837716, longitude: -0.1093252},
-    {latitude: 5.6838010, longitude: -0.1098750},
-    {latitude: 5.6838285, longitude: -0.1100684},
-    {latitude: 5.6838177, longitude: -0.1101761},
-    {latitude: 5.6838143, longitude: -0.1109885},
-    {latitude: 5.6832000, longitude: -0.1109985},
-    {latitude: 5.6832041, longitude: -0.1110264},
+    { latitude: 5.672863, longitude: -0.108272 },
+    { latitude: 5.673051, longitude: -0.108262 },
+    { latitude: 5.673536, longitude: -0.108259 },
+    { latitude: 5.673641, longitude: -0.108266 },
+    { latitude: 5.673789, longitude: -0.108289 },
+    { latitude: 5.6741, longitude: -0.108299 },
+    { latitude: 5.674597, longitude: -0.108281 },
+    { latitude: 5.675246, longitude: -0.108251 },
+    { latitude: 5.675652, longitude: -0.108234 },
+    { latitude: 5.67607, longitude: -0.108214 },
+    { latitude: 5.676468, longitude: -0.108216 },
+    { latitude: 5.676954, longitude: -0.10822 },
+    { latitude: 5.677185, longitude: -0.108216 },
+    { latitude: 5.678083, longitude: -0.108179 },
+    { latitude: 5.679044, longitude: -0.108147 },
+    { latitude: 5.679217, longitude: -0.108142 },
+    { latitude: 5.679591, longitude: -0.108138 },
+    { latitude: 5.679977, longitude: -0.108133 },
+    { latitude: 5.68047, longitude: -0.108126 },
+    { latitude: 5.680798, longitude: -0.108114 },
+    { latitude: 5.681167, longitude: -0.108101 },
+    { latitude: 5.682595, longitude: -0.108045 },
+    { latitude: 5.683783, longitude: -0.108008 },
+    { latitude: 5.684957, longitude: -0.107953 },
+    { latitude: 5.685198, longitude: -0.107964 },
+    { latitude: 5.685853, longitude: -0.107977 },
+    { latitude: 5.686303, longitude: -0.107977 },
+    { latitude: 5.686596, longitude: -0.107976 },
+    { latitude: 5.686775, longitude: -0.107984 },
+    { latitude: 5.687008, longitude: -0.10799 },
+    { latitude: 5.687294, longitude: -0.107982 },
+    { latitude: 5.687484, longitude: -0.107976 },
+    { latitude: 5.687653, longitude: -0.107971 },
+    { latitude: 5.687818, longitude: -0.107959 },
+    { latitude: 5.687926, longitude: -0.10793 },
+    { latitude: 5.688012, longitude: -0.107923 },
+    { latitude: 5.688104, longitude: -0.107927 },
+    { latitude: 5.688443, longitude: -0.107979 },
+    { latitude: 5.688595, longitude: -0.107992 },
+    { latitude: 5.68878, longitude: -0.107989 },
+    { latitude: 5.68939, longitude: -0.107951 },
+    { latitude: 5.689668, longitude: -0.107921 },
+    { latitude: 5.689854, longitude: -0.107908 },
+    { latitude: 5.689978, longitude: -0.107909 },
+    { latitude: 5.690116, longitude: -0.107922 }
   ];
+
+  const routeCoordsTwo = [
+    {latitude: 5.6837623, longitude: -0.1093040},
+  ]
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,7 +80,7 @@ function Index() {
       else {
         clearInterval(interval);
       }
-    }, 1500)
+    }, 2000)
     return () => clearInterval(interval);
   }, [index])
 
@@ -217,9 +260,19 @@ function Index() {
               description="Your destination" 
             />
 
-            {/* Driver Marker */}
+            {/* Driver Marker 1 */}
             <Marker 
               coordinate={routeCoords[index]}
+              title="Driver Location"
+              description="Driver Location" 
+              
+            >
+              <Image style={{width: 35, height: 50, resizeMode: 'contain', transform: [{rotate: '90deg'}]}} source={require('../../assets/icons/driver.png')} />
+            </Marker>
+
+            {/* Driver Marker 2 */}
+            <Marker 
+              coordinate={routeCoordsTwo[0]}
               title="Driver Location"
               description="Driver Location" 
               
@@ -228,15 +281,7 @@ function Index() {
             </Marker>
 
 
-            {/* Driver Polyline */}
-            {/* <Polyline
-              coordinates={routeCoords}
-              // strokeColor="#fff"
-              // strokeJoin="bevel"
-              // strokeOpacity={0.8}
-              // strokeWidth={3}
-
-            /> */}
+            
 
             {/* Polyline for the route */}
            {isPolyline && <Polyline
