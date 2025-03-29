@@ -11,6 +11,7 @@ import MapViewStyling from '../../app/Utils/MapViewStyiling.json'
 import { useRouter } from 'expo-router';
 import ChooseRide from '../ChooseRide';
 import { Platform } from 'react-native';
+import LocateDriver from '../LocateDriver';
 
 
 
@@ -376,6 +377,8 @@ function Index() {
       <BottomSheet />
 
       {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} placeholderDestination={selectedResult?.name} />}
+
+      {<LocateDriver />}
 
     </View>
   );

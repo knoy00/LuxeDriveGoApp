@@ -2,11 +2,18 @@ import { StyleSheet, Text, View, Modal, Pressable, Image, TextInput} from 'react
 import React, {useState, useEffect} from 'react'
 import {X, Bus, ChevronRight, ChevronLeft } from 'lucide-react-native';
 import { MotiView } from 'moti';
+import { useRouter } from 'expo-router';
 
 const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
+    const router = useRouter();
 
     const [isActive, setIsActive] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [destination, setDestination] = useState(placeholderDestination);
+
+    const [locateDriver, setLocateDriver] = useState(false);
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -20,6 +27,12 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
 
     const handleBackButton = () => {
         
+    }
+
+    const confirmRide = () => {
+        setIsVisible(false);
+        setIsLocateDriver(true);
+        router.push('/LocateDriver');
     }
 
   return (
@@ -37,14 +50,16 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
             timing={{type: 'timing', duration: 1500}}
         >
 
-            <View style={{position: 'absolute', top: 50, backgroundColor: '#fff', width: '95%', paddingVertical: 5, paddingHorizontal: 40, borderRadius: 10}}>
+            <View style={{position: 'absolute', top: 50, backgroundColor: '#fff', width: '95%', paddingVertical: 10, paddingHorizontal: 40, borderRadius: 10}}>
                 <Pressable style={{position: 'absolute', top: 15, left: 10}}>
                     <ChevronLeft size={25} color={'#222'}/>
                 </Pressable>
                 <TextInput
-                    placeholder={placeholderDestination}
-                    style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 12}}
-                    fontSize="18"
+                    placeholder={"Your Destination"}
+                    style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 8, textAlign: 'center'}}
+                    fontSize="20"
+                    value={destination}
+                    onChangeText={(text) => setDestination(text)}
 
                 />
             </View>
@@ -197,7 +212,7 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
                     </Pressable>
 
                     <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
-                        <Pressable onPress={() => setVisible(false)} style={styles.button}>
+                        <Pressable onPress={confirmRide} style={[styles.button, {backgroundColor: isActive ? '#222' : '#ddd'}]}>
                             <Text style={styles.button_text}>Confirm Ride</Text>
                         </Pressable>
                     </View>
