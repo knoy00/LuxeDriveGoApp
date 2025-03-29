@@ -69,7 +69,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                                         <Text style={styles.time_skeleton}>8:13 AM</Text>
                                     </View>
                                     <View style={{ marginTop: -10}}>
-                                        <Text style={styles.price_skeleton}>GHC1000</Text>
+                                        <Text style={styles.price_skeleton}>GHC100</Text>
                                         <Text style={styles.discount_skeleton}>$1000</Text>
                                     </View>
                                 </View>
@@ -143,7 +143,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                                         <Text style={styles.time}>8:13 AM</Text>
                                     </View>
                                     <View style={{ marginTop: -10}}>
-                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.price}>GHC130</Text>
                                         <Text style={styles.discount}>$1000</Text>
                                     </View>
                                 </View>
@@ -161,7 +161,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                                         <Text style={styles.time}>8:13 AM</Text>
                                     </View>
                                     <View style={{ marginTop: -10}}>
-                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.price}>GHC235</Text>
                                         <Text style={styles.discount}>$1000</Text>
                                     </View>
                                 </View>
@@ -179,7 +179,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                                         <Text style={styles.time}>8:13 AM</Text>
                                     </View>
                                     <View style={{ marginTop: -10}}>
-                                        <Text style={styles.price}>GHC1000</Text>
+                                        <Text style={styles.price}>GHC520</Text>
                                         <Text style={styles.discount}>$1000</Text>
                                     </View>
                                 </View>
@@ -189,7 +189,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                         <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
                         <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
                             <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
-                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular'}}>**** 5410</Text>
+                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular', fontWeight: 500}}>**** 5410</Text>
                         </View>
                         <View>
                             <ChevronRight  size={20} color='#222'/>
@@ -235,6 +235,8 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 10,
         marginBottom: 0,
+        borderWidth: 2,
+        borderColor: '#fff',
     },
     overlay: {
         flex: 1,
@@ -261,12 +263,15 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginTop: 10,
-        color: '#444'
+        color: '#444',
+        textAlign: 'left'
     },
     discount: {
         fontSize: 14,
         color: '#666',
-        marginTop: 5
+        marginTop: 5,
+        textDecorationLine: 'line-through',
+        textAlign: 'right'
     },
     button: {
         paddingVertical: 20,
@@ -304,7 +309,8 @@ const styles = StyleSheet.create({
         width: 40,
         backgroundColor: '#ddd',
         color: '#ddd',
-        marginTop: 5
+        marginTop: 5,
+        
     },
     button_skeleton: {
         paddingVertical: 20,

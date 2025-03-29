@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, Pressable, Keyboard, FlatList, Text, ScrollView } from 'react-native';
-import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import * as Location from 'expo-location';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,15 +16,25 @@ import { Platform } from 'react-native';
 
 function Index() {
 
+  // const destination = {latitude: 5.603840249999999, longitude: -0.1682693984386616};
+
+  const [isDestination, setIsDestination] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  })
+
   let MapView, Marker;
   if (Platform.OS !== 'web') {
-  MapView = require('react-native-maps').default;
-  Marker = require('react-native-maps').Marker;
+    MapView = require('react-native-maps').default;
+    Marker = require('react-native-maps').Marker;
   }
   const router = useRouter()
 
   const [region, setRegion] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [isPolyline, setIsPolyline] = useState(false);
 
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
@@ -130,6 +140,14 @@ function Index() {
   }
 
   const openModal = (selectedLoc) => {
+    setIsDestination({
+      latitude: selectedLoc.lat,
+      longitude: selectedLoc.lon,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    })
+    setIsPolyline(true)
+    
     setIsBottomSheetVisible(true);
     setIsFocused(false);
     setSelectedResult(selectedLoc)
@@ -153,6 +171,23 @@ function Index() {
               title="Your Current Location"
               description="Your current location" 
             />
+
+            <Marker 
+              coordinate={{latitude: isDestination.latitude, longitude: isDestination.longitude}}
+              title="Your destination"
+              description="Your destination" 
+            />
+
+           {isPolyline && <Polyline
+              coordinates={[
+                { latitude: region.latitude, longitude: region.longitude },
+                { latitude: isDestination.latitude, longitude: isDestination.longitude },
+              ]}
+              strokeColor="#222"
+              strokeJoin="bevel"
+              strokeOpacity={0.8}
+              strokeWidth={3}
+            />}
           </MapView>
 
         </>
