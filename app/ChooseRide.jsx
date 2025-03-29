@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import {X, Bus, ChevronRight, ChevronLeft } from 'lucide-react-native';
 import { MotiView } from 'moti';
 
-const ChooseRide = ({visible, setIsVisible, placeholder}) => {
+const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
 
     const [isActive, setIsActive] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +42,7 @@ const ChooseRide = ({visible, setIsVisible, placeholder}) => {
                     <ChevronLeft size={25} color={'#222'}/>
                 </Pressable>
                 <TextInput
-                    placeholder={placeholder}
+                    placeholder={placeholderDestination}
                     style={{width: '100%', backgroundColor: '#eee', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 12}}
                     fontSize="18"
 

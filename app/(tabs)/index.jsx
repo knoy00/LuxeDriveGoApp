@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet, Pressable, Keyboard, FlatList, Text, ScrollView } from 'react-native';
+import { View, TextInput, StyleSheet, Pressable, Keyboard, FlatList, Text, ScrollView,Image } from 'react-native';
 import MapView, { Marker, PROVIDER_DEFAULT, PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import * as Location from 'expo-location';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {X, Bus} from 'lucide-react-native';
+import {X, Bus, LocateFixed, MousePointer2, Search} from 'lucide-react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
 import axios from 'axios';
 import MapViewStyling from '../../app/Utils/MapViewStyiling.json'
@@ -16,7 +16,31 @@ import { Platform } from 'react-native';
 
 function Index() {
 
-  // const destination = {latitude: 5.603840249999999, longitude: -0.1682693984386616};
+  const [index, setIndex] = useState(0);
+
+  const routeCoords = [
+    {latitude: 5.6837619, longitude: -0.1090878},
+    {latitude: 5.6837716, longitude: -0.1093252},
+    {latitude: 5.6838010, longitude: -0.1098750},
+    {latitude: 5.6838285, longitude: -0.1100684},
+    {latitude: 5.6838177, longitude: -0.1101761},
+    {latitude: 5.6838143, longitude: -0.1109885},
+    {latitude: 5.6832000, longitude: -0.1109985},
+    {latitude: 5.6832041, longitude: -0.1110264},
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if(index < routeCoords.length - 1){
+        setIndex(index + 1);
+      }
+      else {
+        clearInterval(interval);
+      }
+    }, 1500)
+    return () => clearInterval(interval);
+  }, [index])
+
 
   const [isDestination, setIsDestination] = useState({
     latitude: 0,
@@ -39,6 +63,7 @@ function Index() {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [selectedResult, setSelectedResult] = useState(null);
+  const [locationName, setLocationName] = useState('');
 
   const [isActive, setIsActive] = useState(null);
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
@@ -64,6 +89,18 @@ function Index() {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       });
+
+      let address = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      })
+
+      if(address.length > 0){
+        const place =  address[0]
+        setLocationName(place.name)
+      }
+
+      console.log(place)
     })();
   }, []);
 
@@ -166,18 +203,42 @@ function Index() {
             initialRegion={region}
             // provider={PROVIDER_GOOGLE}
           >
+            {/* Current Location Marker */}
             <Marker 
               coordinate={{latitude: region.latitude, longitude: region.longitude}}
               title="Your Current Location"
               description="Your current location" 
             />
 
+            {/* Destinatoin Marker */}
             <Marker 
               coordinate={{latitude: isDestination.latitude, longitude: isDestination.longitude}}
               title="Your destination"
               description="Your destination" 
             />
 
+            {/* Driver Marker */}
+            <Marker 
+              coordinate={routeCoords[index]}
+              title="Driver Location"
+              description="Driver Location" 
+              
+            >
+              <Image style={{width: 35, height: 50, resizeMode: 'contain', transform: [{rotate: '180deg'}]}} source={require('../../assets/icons/driver.png')} />
+            </Marker>
+
+
+            {/* Driver Polyline */}
+            {/* <Polyline
+              coordinates={routeCoords}
+              // strokeColor="#fff"
+              // strokeJoin="bevel"
+              // strokeOpacity={0.8}
+              // strokeWidth={3}
+
+            /> */}
+
+            {/* Polyline for the route */}
            {isPolyline && <Polyline
               coordinates={[
                 { latitude: region.latitude, longitude: region.longitude },
@@ -199,11 +260,15 @@ function Index() {
           <X size={23} color="#777" />
         </Pressable>}
 
+        {isFocused && <View style={{alignItems: 'center', marginTop: 20 }}>
+          <Text style={{fontSize: 25, fontWeight: '500', color: '#222'}} >Your route</Text>
+        </View>}
+
         
-        <View style={{marginTop: isFocused ? 58 : 18}}>
+        <View style={{marginTop: isFocused ? 20 : 18}}>
           {isFocused && <TextInput
             style={[styles.input_text, { borderColor: isFocused ? '#222' : '#efefef' }]}
-            placeholder="Pick-up location"
+            placeholder='Pickup Location'
             placeholderTextColor={'#777'}
             fontWeight="500"
             returnKeyType="done"
@@ -211,7 +276,11 @@ function Index() {
             autoCorrect={false}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            value={locationName}
           />}
+
+            <MousePointer2 style={{position: 'absolute', top: 12, left: 10}} size={25} color="#222"  />
+
           <TextInput
             style={[styles.input_text, { borderColor: isFocused ? '#222' : '#efefef', marginTop: isFocused ? 20 : 0 }]}
             placeholder="Where to?"
@@ -225,9 +294,7 @@ function Index() {
             // onBlur={() => setIsFocused(false)}
           />
 
-          <Pressable onPress={() => router.push('ChooseRide')}>
-            <Icon name="search" size={25} color="#222" />
-          </Pressable>
+          <Search size={25} color="#666" style={{position: 'absolute', top: 82, left: 10}} />
         </View>
           {isFocused && searchResult.length > 0 &&(
             <FlatList
@@ -263,7 +330,7 @@ function Index() {
 
       <BottomSheet />
 
-      {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} placeholder={selectedResult?.name} />}
+      {isBottomSheetVisible && <ChooseRide visible={isBottomSheetVisible} setIsVisible={setIsBottomSheetVisible} placeholderDestination={selectedResult?.name} />}
 
     </View>
   );
@@ -294,9 +361,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderRadius: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
     color: '#222222',
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '400',
     backgroundColor: '#efefef',
     marginTop: 0,
