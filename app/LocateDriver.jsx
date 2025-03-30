@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Modal, Animated, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, Modal, Animated, TouchableOpacity, Image, Pressable } from 'react-native'
 import React, { useRef, useState, useEffect} from 'react'
 import { ArrowDown } from 'lucide-react-native';
 import { ScreenContext } from "./ScreenContext";
 import { useContext } from "react";
 import { MotiView } from 'moti';
-import { CarTaxiFront,BadgeCheck, MessageSquareText, Phone } from 'lucide-react-native';
+import { CarTaxiFront,BadgeCheck, MessageSquareText, Phone, MapPin, ChevronRight } from 'lucide-react-native';
 
 const DriverInfo = () => {
     return (
@@ -116,7 +116,7 @@ const LocateDriver = () => {
 
                 <MotiView>
                     <View style={styles.header_wrapper}>
-                        <Text style={styles.title}>Arriving in 10 minutes</Text>
+                        <Text style={styles.title}>Arriving in 1 minute</Text>
                         <Text style={styles.sub_title}>Driver is on the way to you. Please have your phone by you incase the driver wants to contact you.</Text>
                     </View>
 
@@ -143,8 +143,35 @@ const LocateDriver = () => {
                         </View>
                     </View>
 
+                    <View style={{flexDirection: 'row',width: '100%', alignItems: 'center', marginTop: 20,  paddingHorizontal: 20, gap: 0}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                            <MapPin size={23} color={'#222'}/>
+                        </View>
+                        <View style={{flexDirection: 'row',width: '100%', marginTop: 20, paddingHorizontal: 10, justifyContent: 'space-between', alignItems: 'center'}}>
+                            <View>
+                                <Text style={{fontSize: 18, fontWeight: '700', color: '#222'}}>Accra</Text>
+                                <Text style={{fontSize: 15, fontWeight: '400', color: '#222'}}>Change destination</Text>
+                            </View>
+                            <View>
+                                <ChevronRight size={25} color={'#111'}/>
+                            </View>
+                        </View>
+                    </View>
+
+
+                    <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#efefef', marginTop: 10}}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10, marginLeft: 15, marginTop: 10}}>
+                            <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
+                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular', fontWeight: 500}}>**** 5410</Text>
+                        </View>
+                        <View>
+                            <ChevronRight  size={25} color='#222'/>
+                        </View>
+                    </Pressable>
 
                 </MotiView>
+
+                
 
                 <TouchableOpacity style={styles.cancel_btn}>
                     <Text style={styles.cancel_btn_text}>Cancel</Text>
@@ -226,7 +253,7 @@ const styles = StyleSheet.create({
     cancel_btn: {
         width: '100%',
         height: 50,
-        backgroundColor: '#f50000',
+        backgroundColor: '#111',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
@@ -239,10 +266,10 @@ const styles = StyleSheet.create({
     },
     driver_info: {
         width: '100%',
-        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#eee',
         paddingHorizontal: 20,
-        paddingVertical: 5,
+        paddingVertical: 10,
         backgroundColor: '#fff',
         borderRadius: 10,
         justifyContent: 'center',

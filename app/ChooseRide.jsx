@@ -202,14 +202,14 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
                         </Pressable>
 
                         <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10}}>
-                        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                            <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
-                            <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular', fontWeight: 500}}>**** 5410</Text>
-                        </View>
-                        <View>
-                            <ChevronRight  size={20} color='#222'/>
-                        </View>
-                    </Pressable>
+                            <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                                <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
+                                <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular', fontWeight: 500}}>**** 5410</Text>
+                            </View>
+                            <View>
+                                <ChevronRight  size={20} color='#222'/>
+                            </View>
+                        </Pressable>
 
                     <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
                         <Pressable onPress={confirmRide} style={[styles.button, {backgroundColor: isActive ? '#222' : '#ddd'}]}>
