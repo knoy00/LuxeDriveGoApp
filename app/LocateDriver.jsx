@@ -35,7 +35,11 @@ const LocateDriver = () => {
     const { locateDriver } = useContext(ScreenContext);
     if (!locateDriver) return null;
 
+    const [searchDriver, setSearchDriver] = useState(true)
     const [driverLocated, setDriverLocated] = useState(false)
+    const [isArriving, setIsArriving] = useState(false)
+    const [rideStarted, setRideStarted] = useState(false);
+
 
 
 
@@ -59,9 +63,22 @@ const LocateDriver = () => {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
+        const driverTimeout = setTimeout(() => {
+            setSearchDriver(false);
             setDriverLocated(true);
+            const arriveTimeout = setTimeout(() => {
+                setDriverLocated(false);
+                setIsArriving(true);
+                const rideTimeout = setTimeout(() => {
+                    setRideStarted(true);
+                    setIsArriving(true);        
+                }, 5000)
+                return () => clearTimeout(rideTimeout)
+            }, 10000)
+            return () => clearTimeout(arriveTimeout)
         }, 5000)
+        return () => clearTimeout(driverTimeout)
+        
     }, [])
 
   return (
@@ -74,7 +91,7 @@ const LocateDriver = () => {
       >
         <View style={styles.overlay}>
             <View style={styles.modal_sheet}>
-                {!driverLocated && <>
+                {searchDriver && <>
                     <View style={styles.header_wrapper}>
                         <Text style={styles.title}>Searching for a driver</Text>
                         <Text style={styles.sub_title}>We're searching for a driver near you</Text>
@@ -95,7 +112,7 @@ const LocateDriver = () => {
                     </View>
                 </>}
 
-                {!driverLocated && <MotiView
+                {driverLocated && <MotiView
                     from={{ opacity: 0, translateY: 50}}
                     animate={{ opacity: 1, translateY: 0}}
                     transition={{ type: 'timing', duration: 500 }}
@@ -114,7 +131,7 @@ const LocateDriver = () => {
                     
                 </MotiView>}
 
-                <MotiView>
+                {isArriving &&<MotiView>
                     <View style={styles.header_wrapper}>
                         <Text style={styles.title}>Arriving in 1 minute</Text>
                         <Text style={styles.sub_title}>Driver is on the way to you. Please have your phone by you incase the driver wants to contact you.</Text>
@@ -169,7 +186,7 @@ const LocateDriver = () => {
                         </View>
                     </Pressable>
 
-                </MotiView>
+                </MotiView>}
 
                 
 

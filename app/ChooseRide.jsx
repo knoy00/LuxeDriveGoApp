@@ -211,7 +211,7 @@ const ChooseRide = ({visible, setIsVisible, placeholderDestination}) => {
                             </View>
                         </Pressable>
 
-                    <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 5}}>
+                    <View style={{ alignItems: 'center', paddingHorizontal: 10, marginTop: 4}}>
                         <Pressable onPress={confirmRide} style={[styles.button, {backgroundColor: isActive ? '#222' : '#ddd'}]}>
                             <Text style={styles.button_text}>Confirm Ride</Text>
                         </Pressable>
