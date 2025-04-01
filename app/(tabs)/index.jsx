@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import ChooseRide from '../ChooseRide';
 import { Platform } from 'react-native';
 import LocateDriver from '../LocateDriver';
+import calculateBearing from '../Utils/BearingLogic/calculateBearing'
 
 import { ScreenContext } from '../ScreenContext'
 
@@ -21,6 +22,7 @@ function Index() {
 
   const [index, setIndex] = useState(0);
   const [index_two, setIndex_two] = useState(0);
+  const [carRotation , setCarRotation] = useState(0);
 
 
   const routeCoords = [
@@ -108,19 +110,31 @@ function Index() {
   useEffect(() => {
     if (driverEnroute) {
       const interval_two = setInterval(() => {
+        const prevCoord = routeCoordsTwo[index_two];
+  
+        // Only calculate bearing if nextCoord exists
+        const nextCoord = routeCoordsTwo[index_two + 1];
+        if (nextCoord) {
+          const newBearing = calculateBearing(prevCoord, nextCoord);
+          setCarRotation(newBearing);
+        }
+  
+        // Update the index and stop if we've reached the end of the route
         setIndex_two((prevIndex) => {
           if (prevIndex < routeCoordsTwo.length - 1) {
             return prevIndex + 1;
           } else {
-            clearInterval(interval_two);
+            clearInterval(interval_two); // Stop the interval when the last point is reached
             return prevIndex;
           }
         });
       }, 2000);
-
+  
+      // Cleanup interval when the component is unmounted or driverEnroute changes
       return () => clearInterval(interval_two);
     }
-  }, [driverEnroute]);
+  }, [driverEnroute, index_two]);
+  
   
 
 
@@ -274,7 +288,7 @@ function Index() {
               description="Driver Location" 
               
             >
-              <Image style={{width: 35, height: 50, resizeMode: 'contain', transform: [{rotate: '180deg'}]}} source={require('../../assets/icons/driver.png')} />
+              <Image style={{width: 30, height: 30, resizeMode: 'contain', transform: [{rotate: `${carRotation}deg`}]}} source={require('../../assets/icons/driver2.png')} />
             </Marker>
 
 
