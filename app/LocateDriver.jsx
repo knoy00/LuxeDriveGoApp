@@ -7,6 +7,7 @@ import { MotiView } from 'moti';
 import { CarTaxiFront,BadgeCheck, MessageSquareText, Phone, MapPin, ChevronRight } from 'lucide-react-native';
 
 const DriverInfo = () => {
+
     return (
         <>
             <View style={styles.driver_info}>
@@ -33,6 +34,8 @@ const DriverInfo = () => {
 
 const LocateDriver = () => {
     const { locateDriver } = useContext(ScreenContext);
+    const {setDriverEnroute} = useContext(ScreenContext)
+
     if (!locateDriver) return null;
 
     const [searchDriver, setSearchDriver] = useState(true)
@@ -71,7 +74,8 @@ const LocateDriver = () => {
                 setIsArriving(true);
                 const rideTimeout = setTimeout(() => {
                     setRideStarted(true);
-                    setIsArriving(true);        
+                    setIsArriving(true);  
+                    setDriverEnroute(true)      
                 }, 5000)
                 return () => clearTimeout(rideTimeout)
             }, 10000)
@@ -176,7 +180,7 @@ const LocateDriver = () => {
                     </View>
 
 
-                    <Pressable onPress={() => setIsActive(!isActive)} style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#efefef', marginTop: 10}}>
+                    <Pressable style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10, borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#efefef', marginTop: 10}}>
                         <View style={{flexDirection: 'row', alignItems: 'center', gap: 10, marginLeft: 15, marginTop: 10}}>
                             <Image source={require('../assets/icons/visa.png')} style={{width: 40, height: 50, resizeMode: 'contain'}}/>
                             <Text style={{color: '#222', fontSize: 16, fontWeight: 'regular', fontWeight: 500}}>**** 5410</Text>

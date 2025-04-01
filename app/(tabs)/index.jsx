@@ -13,11 +13,15 @@ import ChooseRide from '../ChooseRide';
 import { Platform } from 'react-native';
 import LocateDriver from '../LocateDriver';
 
+import { ScreenContext } from '../ScreenContext'
 
 
 function Index() {
+  const {driverEnroute} = useContext(ScreenContext)
 
   const [index, setIndex] = useState(0);
+  const [index_two, setIndex_two] = useState(0);
+
 
   const routeCoords = [
     { latitude: 5.672863, longitude: -0.108272 },
@@ -68,8 +72,24 @@ function Index() {
   ];
 
   const routeCoordsTwo = [
-    {latitude: 5.6837623, longitude: -0.1093040},
-  ]
+    { latitude: 5.683817, longitude: -0.109302 },
+    { latitude: 5.683808, longitude: -0.109063 },
+    { latitude: 5.683792, longitude: -0.108545 },
+    { latitude: 5.683788, longitude: -0.108435 },
+    { latitude: 5.683783, longitude: -0.108008 },
+    { latitude: 5.682595, longitude: -0.108045 },
+    { latitude: 5.681167, longitude: -0.108101 },
+    { latitude: 5.680798, longitude: -0.108114 },
+    { latitude: 5.680844, longitude: -0.108546 },
+    { latitude: 5.680855, longitude: -0.108727 },
+    { latitude: 5.68085, longitude: -0.1088 },
+    { latitude: 5.680836, longitude: -0.109029 },
+    { latitude: 5.680905, longitude: -0.110676 },
+    { latitude: 5.681456, longitude: -0.110596 },
+    { latitude: 5.681512, longitude: -0.110584 },
+    { latitude: 5.681532, longitude: -0.110563 }
+  ];
+
 
 
 
@@ -84,6 +104,24 @@ function Index() {
     }, 2000)
     return () => clearInterval(interval);
   }, [index])
+
+  useEffect(() => {
+    if (driverEnroute) {
+      const interval_two = setInterval(() => {
+        setIndex_two((prevIndex) => {
+          if (prevIndex < routeCoordsTwo.length - 1) {
+            return prevIndex + 1;
+          } else {
+            clearInterval(interval_two);
+            return prevIndex;
+          }
+        });
+      }, 2000);
+
+      return () => clearInterval(interval_two);
+    }
+  }, [driverEnroute]);
+  
 
 
   const [isDestination, setIsDestination] = useState({
@@ -154,50 +192,7 @@ function Index() {
     Keyboard.dismiss();
   }
 
-  const customMapStyle = [
-    {
-      "featureType": "all",
-      "elementType": "geometry.fill",
-      "stylers": [
-        { "color": "#d8d8d8" }
-      ]
-    },
-    {
-      "featureType": "landscape",
-      "elementType": "geometry",
-      "stylers": [
-        { "color": "#f0f0f0" }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "geometry",
-      "stylers": [
-        { "color": "#ffffff" }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        { "color": "#e0e0e0" }
-      ]
-    },
-    {
-      "featureType": "poi",
-      "elementType": "geometry.fill",
-      "stylers": [
-        { "color": "#e7e7e7" }
-      ]
-    },
-    {
-      "featureType": "water",
-      "elementType": "geometry.fill",
-      "stylers": [
-        { "color": "#a0d7e7" }
-      ]
-    }
-  ];
+ 
 
   // useEffect(() => {
   //   console.log(searchText)
@@ -274,7 +269,7 @@ function Index() {
 
             {/* Driver Marker 2 */}
             <Marker 
-              coordinate={routeCoordsTwo[0]}
+              coordinate={routeCoordsTwo[index_two]}
               title="Driver Location"
               description="Driver Location" 
               
