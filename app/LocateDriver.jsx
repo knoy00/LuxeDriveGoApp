@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "flex-end",
         backgroundColor: "transparent",
+        pointerEvents: 'box-none'
     },
     modal_sheet: {
         backgroundColor: '#fff',

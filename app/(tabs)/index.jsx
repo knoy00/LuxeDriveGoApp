@@ -93,8 +93,6 @@ function Index() {
   ];
 
 
-
-
   useEffect(() => {
     const interval = setInterval(() => {
       if(index < routeCoords.length - 1){
@@ -111,26 +109,23 @@ function Index() {
     if (driverEnroute) {
       const interval_two = setInterval(() => {
         const prevCoord = routeCoordsTwo[index_two];
-  
-        // Only calculate bearing if nextCoord exists
         const nextCoord = routeCoordsTwo[index_two + 1];
+        
         if (nextCoord) {
           const newBearing = calculateBearing(prevCoord, nextCoord);
           setCarRotation(newBearing);
         }
   
-        // Update the index and stop if we've reached the end of the route
         setIndex_two((prevIndex) => {
           if (prevIndex < routeCoordsTwo.length - 1) {
             return prevIndex + 1;
           } else {
-            clearInterval(interval_two); // Stop the interval when the last point is reached
+            clearInterval(interval_two);
             return prevIndex;
           }
         });
       }, 2000);
   
-      // Cleanup interval when the component is unmounted or driverEnroute changes
       return () => clearInterval(interval_two);
     }
   }, [driverEnroute, index_two]);
@@ -350,7 +345,7 @@ function Index() {
             // onBlur={() => setIsFocused(false)}
           />
 
-          <Search size={25} color="#666" style={{position: 'absolute', top: 82, left: 10}} />
+          <Search size={25} color="#222" style={{position: 'absolute', top: 82, left: 10}} />
         </View>
           {isFocused && searchResult.length > 0 &&(
             <FlatList
@@ -419,7 +414,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderRadius: 10,
-    paddingHorizontal: 40,
+    paddingHorizontal: 35,
     color: '#222222',
     fontSize: 18,
     fontWeight: '400',
