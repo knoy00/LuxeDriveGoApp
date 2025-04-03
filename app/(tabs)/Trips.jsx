@@ -1,12 +1,18 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable } from 'react-native'
 import { MotiView } from 'moti';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ScreenContext } from '../ScreenContext';
-import { FileX } from 'lucide-react-native';
+import { FileX , Navigation2, MapPin } from 'lucide-react-native';
 
 
 const Trips = () => {
+  const [activeTab, setActiveTab] = useState('complete')
   const {tripsArray} = useContext(ScreenContext)  
+
+
+  const handleTab = (tab) => {
+    setActiveTab(tab)
+  }
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -29,19 +35,52 @@ const Trips = () => {
             <Text style={{fontSize: 22, fontWeight: 500, color: '#333', marginTop: 20}}>You currently have no ride history</Text>
           </View>
         ) : (
-          <ScrollView>
+          <View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <View style={{padding: 10, marginTop: 20, borderRadius: 70, width: '90%', borderWidth: 2, borderColor: '#111'}}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <View style={styles.tab_wrapper}>
-                    <Text style={styles.tab_text}>Complete</Text>
-                  </View>
+
+                  <Pressable style={[styles.tab_wrapper, {backgroundColor: activeTab === "complete" ? '#111' : '#fff'}]} onPress={() => setActiveTab("complete")}>
+                    <Text style={[styles.tab_text, {color: activeTab === "complete" ? '#fff' : '#111'}]}>Complete</Text>
+                  </Pressable>
+
+                  <Pressable style={[styles.tab_wrapper, {backgroundColor: activeTab === "active" ? '#111' : '#fff'}, ]} onPress={() => setActiveTab("active")}>
+                    <Text style={[styles.tab_text, {color: activeTab === "active" ? '#fff' : '#111'}]}>Active</Text>
+                  </Pressable>
+
+                  <Pressable style={[styles.tab_wrapper, {backgroundColor: activeTab === "scheduled" ? '#111' : '#fff'}]} onPress={() => setActiveTab("scheduled")}>
+                    <Text style={[styles.tab_text, {color: activeTab === "scheduled" ? '#fff' : '#111'}]}>Scheduled</Text>
+                  </Pressable>
                   
-              </View>
+                </View>
               </View>
               
             </View>
-          </ScrollView>
+
+            <ScrollView style={{flexGrow: 1}}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 10}}>
+                  <MapPin size={20} color={'#111'} />
+                  <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View>
+                  <Navigation2 size={20} color={'#111'} />
+                </View>
+                <View>
+                  <View>
+                    <Text>Adenta, Greater Accra</Text>
+                    <Text>Pickup Point</Text>
+                  </View>
+
+                  <View>
+                    <Text>Accra, Greater Accra</Text>
+                    <Text>Destination</Text>
+                  </View>
+                </View>
+                <View></View>
+              </View>
+            </ScrollView>
+          </View>
+
+          
         )}
       </>
 
@@ -73,14 +112,13 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   tab_wrapper: {
-    backgroundColor: '#111',
     padding: 10, 
     borderRadius: 50,
-    paddingHorizontal: 20
+    paddingHorizontal: 28,
   },
   tab_text: {
     fontSize: 16,
-    fontWeight: 500,
-    color: '#fff'
+    fontWeight: 600,
+    color: '#111'
   }
 })
