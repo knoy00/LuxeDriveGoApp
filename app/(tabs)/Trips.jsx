@@ -1,34 +1,23 @@
-import { StyleSheet, Text, View, TextInput, Button, Pressable } from 'react-native'
-import React, { useState } from 'react'
-import {FIREBASE_AUTH} from '../Utils/Firebase/Firebase'
-import {createUserWithEmailAndPassword} from 'firebase/auth';
-import { create } from 'react-test-renderer';
-
+import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import React from 'react'
+import { MotiView } from 'moti';
 
 
 const Trips = () => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const auth = FIREBASE_AUTH;
-
-  const signIn = async () => {
-    try{
-      await createUserWithEmailAndPassword(auth, email, password)
-      console.log("Registration Success");
-    }
-    catch (error){
-      console.error(error);
-    }
-  }
   return (
     <View style={styles.container}>
-      <TextInput placeholder='Email' value={email} onChangeText={(text) => setEmail(text)} style={styles.textField}/>
-      <TextInput placeholder='Password' value={password} onChangeText={(text) => setPassword(text)} style={styles.textField}></TextInput>
-      <Pressable onPress={signIn}>
-        <Text style={{color: 'blue', fontWeight: 'bold'}}>Sign Up</Text>
-      </Pressable>
+      <StatusBar barStyle="light-content" />
+            <View
+              style={styles.header_wrapper}
+            >
+              <MotiView
+                from={{ opacity: 0, translateY: 50}}
+                animate={{ opacity: 1, translateY: 0 }}
+                transition={{ type: 'timing', duration: 1000 }}
+              >
+                <Text style={styles.header_text}>Trips</Text>
+              </MotiView>
+            </View>
     </View>
   )
 }
@@ -37,19 +26,22 @@ export default Trips
 
 const styles = StyleSheet.create({
   container: {
-    flex :1,
-    backgroundColor: '#F8F8F8',
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1,
+    backgroundColor: '#fff',
   },
-  textField: {
+  header_wrapper: {
     width: '100%',
-    height: 40,
-    borderWidth: 1, 
+    marginTop: 0,
+    backgroundColor: '#111',
+    height: 120,
+    padding: 20,
+    borderBottomWidth: 1,
     borderColor: '#111',
-    borderRadius: 5,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  }
+  },
+  header_text: {
+    fontSize: 24,
+    fontWeight: 500,
+    color: '#fff',
+    marginTop: 50
+  },
 })
