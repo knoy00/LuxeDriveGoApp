@@ -5,10 +5,11 @@ export const ScreenContext = createContext();
 const ScreenProvider = ({ children }) => { 
   const [locateDriver, setLocateDriver] = useState(false);
   const [driverEnroute, setDriverEnroute] = useState(false);
+  const [tripsArray, setTripsArray] = useState([]);
   
 
   return (
-    <ScreenContext.Provider value={{ locateDriver, setLocateDriver, driverEnroute, setDriverEnroute }}>
+    <ScreenContext.Provider value={{ locateDriver, setLocateDriver, driverEnroute, setDriverEnroute, tripsArray, setTripsArray }}>
       {children} 
     </ScreenContext.Provider>
   );
