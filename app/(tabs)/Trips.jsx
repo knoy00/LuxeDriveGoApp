@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable, Image } from 'react-native'
 import { MotiView } from 'moti';
 import { useContext, useState } from 'react';
 import { ScreenContext } from '../ScreenContext';
@@ -57,45 +57,14 @@ const Trips = () => {
               
             </View>
 
-            {activeTab === "complete" && <ScrollView style={{flexGrow: 1, marginTop: 40}} bounces={true}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 0, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
-                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
-                  <MapPin size={20} color={'red'} />
-                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
-                  <MoveDown size={25} color={'red'} />
-                  <Navigation2 size={20} color={'red'} />
-                </View>
-
-                <View style={{flexDirection: 'column', justifyContent: 'space-between',  width: 180}}>
-                  <View>
-                    <Text style={styles.location_text}>Adenta, Greater Accra</Text>
-                    <Text style={styles.route_label}>Pickup Point</Text>
-                  </View>
-
-                  <View>
-                    <Text style={styles.location_text}>Accra, Greater Accra</Text>
-                    <Text style={styles.route_label}>Destination</Text>
-                  </View>
-                </View>
-
-                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
-                  <View>
-                    <Text>Amount</Text>
-                    <Text>GHC 129</Text>
-                  </View>
-
-                  <View>
-                    <Text>Distance</Text>
-                    <Text>12km</Text>
-                  </View>
-                </View>
-              </View>
+            {activeTab === "complete" && <ScrollView style={{flexGrow: 1, marginTop: 30, height: '100%'}} bounces={true}>
+              
 
               <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
                 <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
-                  <MapPin size={20} color={'green'} />
+                  <MapPin size={20} color={'red'} />
                   {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
-                  <MoveDown size={25} color={'#777'} />
+                  <MoveDown size={25} color={'#999'} />
                   <Navigation2 size={20} color={'red'} />
                 </View>
 
@@ -124,39 +93,135 @@ const Trips = () => {
                 </View>
               </View>
 
+              
               <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
                 <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
-                  <MapPin size={20} color={'green'} />
+                  <MapPin size={20} color={'red'} />
                   {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
-                  <MoveDown size={25} color={'#777'} />
+                  <MoveDown size={25} color={'#999'} />
                   <Navigation2 size={20} color={'red'} />
                 </View>
 
                 <View style={{flexDirection: 'column', justifyContent: 'space-between', width: 180}}>
                   <View>
-                    <Text style={styles.location_text}>Adenta, Greater Accra</Text>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>University of Ghana, Accra</Text>
                     <Text style={styles.route_label}>Pickup Point</Text>
                   </View>
 
                   <View>
-                    <Text style={styles.location_text}>Accra, Greater Accra</Text>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>Pinkberry, East Legon</Text>
                     <Text style={styles.route_label}>Destination</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
                   <View>
-                    <Text>Amount</Text>
-                    <Text>GHC 129</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Amount</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>GHC 129</Text>
                   </View>
 
                   <View>
-                    <Text>Distance</Text>
-                    <Text>12km</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Distance</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>12km</Text>
                   </View>
                 </View>
               </View>
+
               
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
+                  <MapPin size={20} color={'red'} />
+                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
+                  <MoveDown size={25} color={'#999'} />
+                  <Navigation2 size={20} color={'red'} />
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between', width: 180}}>
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>University of Ghana, Accra</Text>
+                    <Text style={styles.route_label}>Pickup Point</Text>
+                  </View>
+
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>Pinkberry, East Legon</Text>
+                    <Text style={styles.route_label}>Destination</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Amount</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>GHC 129</Text>
+                  </View>
+
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Distance</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>12km</Text>
+                  </View>
+                </View>
+              </View>
+
+              
+            </ScrollView>}
+
+            {activeTab === 'active' && <ScrollView style={{flexGrow:1, height: '100%', marginTop: 30}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
+                  <MapPin size={20} color={'red'} />
+                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
+                  <MoveDown size={25} color={'#999'} />
+                  <Navigation2 size={20} color={'red'} />
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between', width: 180}}>
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>University of Ghana, Accra</Text>
+                    <Text style={styles.route_label}>Pickup Point</Text>
+                  </View>
+
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>Pinkberry, East Legon</Text>
+                    <Text style={styles.route_label}>Destination</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Amount</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>GHC 129</Text>
+                  </View>
+
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Distance</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>12km</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center'}}>
+                <View style={styles.seperator}></View>
+                <View>
+                  <Text>Details</Text>
+                </View>
+                <View style={styles.seperator}></View>
+              </View>
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, borderWidth: 1, borderColor: '#aaa', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center', marginTop: 0, backgroundColor: '#efefef', borderRadius: 50}}>
+                    <Image style={{width: 60, height: 60, borderRadius: 50, resizeMode: 'cover', marginRight: 0}} source={require('../../assets/images/man.avif')} />
+                  </View>
+                  <View>
+                    <Text>Kwame Sarfo</Text>
+                    <Text>LuxeDriveGo</Text>
+                  </View>
+                </View>
+                <View>
+                  <Text>Toyota Corolla</Text>
+                  <Text>GR-4324-19</Text>
+                </View>
+              </View>
+            
             </ScrollView>}
           </View>
 
@@ -213,5 +278,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 500,
     marginTop: 2,
+  },
+  seperator: {
+    height: 2,
+    width:150,
+    backgroundColor: '#efefef',
   }
 })
