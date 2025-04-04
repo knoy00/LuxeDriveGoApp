@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, StatusBar, ScrollView, Pressable } from 'react-
 import { MotiView } from 'moti';
 import { useContext, useState } from 'react';
 import { ScreenContext } from '../ScreenContext';
-import { FileX , Navigation2, MapPin } from 'lucide-react-native';
+import { FileX , Navigation2, MapPin, MoveDown} from 'lucide-react-native';
 
 
 const Trips = () => {
@@ -41,7 +41,7 @@ const Trips = () => {
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
 
                   <Pressable style={[styles.tab_wrapper, {backgroundColor: activeTab === "complete" ? '#111' : '#fff'}]} onPress={() => setActiveTab("complete")}>
-                    <Text style={[styles.tab_text, {color: activeTab === "complete" ? '#fff' : '#111'}]}>Complete</Text>
+                    <Text style={[styles.tab_text, {color: activeTab === "complete" ? '#fff' : '#111'}]}>Completed</Text>
                   </Pressable>
 
                   <Pressable style={[styles.tab_wrapper, {backgroundColor: activeTab === "active" ? '#111' : '#fff'}, ]} onPress={() => setActiveTab("active")}>
@@ -57,27 +57,107 @@ const Trips = () => {
               
             </View>
 
-            <ScrollView style={{flexGrow: 1}}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20}}>
-                <View style={{flexDirection: 'column', alignItems: 'center', gap: 10}}>
-                  <MapPin size={20} color={'#111'} />
-                  <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View>
-                  <Navigation2 size={20} color={'#111'} />
+            {activeTab === "complete" && <ScrollView style={{flexGrow: 1, marginTop: 40}} bounces={true}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 0, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
+                  <MapPin size={20} color={'red'} />
+                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
+                  <MoveDown size={25} color={'red'} />
+                  <Navigation2 size={20} color={'red'} />
                 </View>
-                <View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between',  width: 180}}>
                   <View>
-                    <Text>Adenta, Greater Accra</Text>
-                    <Text>Pickup Point</Text>
+                    <Text style={styles.location_text}>Adenta, Greater Accra</Text>
+                    <Text style={styles.route_label}>Pickup Point</Text>
                   </View>
 
                   <View>
-                    <Text>Accra, Greater Accra</Text>
-                    <Text>Destination</Text>
+                    <Text style={styles.location_text}>Accra, Greater Accra</Text>
+                    <Text style={styles.route_label}>Destination</Text>
                   </View>
                 </View>
-                <View></View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <View>
+                    <Text>Amount</Text>
+                    <Text>GHC 129</Text>
+                  </View>
+
+                  <View>
+                    <Text>Distance</Text>
+                    <Text>12km</Text>
+                  </View>
+                </View>
               </View>
-            </ScrollView>
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
+                  <MapPin size={20} color={'green'} />
+                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
+                  <MoveDown size={25} color={'#777'} />
+                  <Navigation2 size={20} color={'red'} />
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between', width: 180}}>
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>University of Ghana, Accra</Text>
+                    <Text style={styles.route_label}>Pickup Point</Text>
+                  </View>
+
+                  <View>
+                    <Text style={styles.location_text} ellipsizeMode='tail' numberOfLines={1}>Pinkberry, East Legon</Text>
+                    <Text style={styles.route_label}>Destination</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Amount</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>GHC 129</Text>
+                  </View>
+
+                  <View>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: '#888'}}>Distance</Text>
+                    <Text style={{fontSize: 16, fontWeight: '600', color: 'green'}}>12km</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
+                  <MapPin size={20} color={'green'} />
+                  {/* <View style={{height:50, width: 3, backgroundColor: '#777', borderRadius:50}}></View> */}
+                  <MoveDown size={25} color={'#777'} />
+                  <Navigation2 size={20} color={'red'} />
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between', width: 180}}>
+                  <View>
+                    <Text style={styles.location_text}>Adenta, Greater Accra</Text>
+                    <Text style={styles.route_label}>Pickup Point</Text>
+                  </View>
+
+                  <View>
+                    <Text style={styles.location_text}>Accra, Greater Accra</Text>
+                    <Text style={styles.route_label}>Destination</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+                  <View>
+                    <Text>Amount</Text>
+                    <Text>GHC 129</Text>
+                  </View>
+
+                  <View>
+                    <Text>Distance</Text>
+                    <Text>12km</Text>
+                  </View>
+                </View>
+              </View>
+              
+            </ScrollView>}
           </View>
 
           
@@ -120,5 +200,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 600,
     color: '#111'
+  },
+  location_text: {
+    color: '#222',
+    fontSize: 18,
+    fontWeight: 600,
+    width: '100%',
+
+  },
+  route_label: {
+    color: '#888',
+    fontSize: 15,
+    fontWeight: 500,
+    marginTop: 2,
   }
 })
