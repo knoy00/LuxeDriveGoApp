@@ -206,20 +206,52 @@ const Trips = () => {
                 <View style={styles.seperator}></View>
               </View>
 
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, borderWidth: 1, borderColor: '#aaa', padding: 10, borderRadius: 20}}>
-                <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, borderWidth: 1, borderColor: '#ddd', alignItems:'center', padding: 10, borderRadius: 20}}>
+                <View style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
                   <View style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center', marginTop: 0, backgroundColor: '#efefef', borderRadius: 50}}>
                     <Image style={{width: 60, height: 60, borderRadius: 50, resizeMode: 'cover', marginRight: 0}} source={require('../../assets/images/man.avif')} />
                   </View>
                   <View>
-                    <Text>Kwame Sarfo</Text>
-                    <Text>LuxeDriveGo</Text>
+                    <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Kwame Sarfo</Text>
+                    <Text style={{fontSize: 15, fontWeight: '600', color: '#888', marginTop: 5}}>Driver</Text>
                   </View>
                 </View>
                 <View>
-                  <Text>Toyota Corolla</Text>
-                  <Text>GR-4324-19</Text>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Toyota Corolla</Text>
+                  <Text style={{fontSize: 15, fontWeight: '600', color: '#888', marginTop: 5, textAlign: 'right'}}>GR-4324-19</Text>
                 </View>
+              </View>
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Payment Method</Text>
+                  <Text>Card</Text>
+                </View>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Duration</Text>
+                  <Text>00:48:23</Text>
+                </View>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Rating</Text>
+                  <Text>wdwd</Text>
+                </View>
+                
+              </View>
+            
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Trip Fare</Text>
+                  <Text>GHC 129.00</Text>
+                </View>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Duration</Text>
+                  <Text>00:48:23</Text>
+                </View>
+                <View>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Rating</Text>
+                  <Text>wdwd</Text>
+                </View>
+                
               </View>
             
             </ScrollView>}
