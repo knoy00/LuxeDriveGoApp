@@ -222,23 +222,31 @@ const Trips = () => {
                 </View>
               </View>
 
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 25, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
                 <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Payment Method</Text>
-                  <Text>Card</Text>
+                  <Text style={styles.details_header}>Payment</Text>
+                  <Text style={styles.details_sub_text}>Card</Text>
                 </View>
                 <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Duration</Text>
-                  <Text>00:48:23</Text>
+                  <Text style={styles.details_header}>Duration</Text>
+                  <Text style={styles.details_sub_text}>00:48:23</Text>
                 </View>
                 <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Rating</Text>
-                  <Text>wdwd</Text>
+                  <Text style={styles.details_header}>Trip Fare</Text>
+                  <Text style={styles.details_sub_text}>GHC129</Text>
+                </View>
+                <View>
+                  <Text style={styles.details_header}>Discount</Text>
+                  <Text style={styles.details_sub_text}>---</Text>
                 </View>
                 
               </View>
+
+              <View>
+                
+              </View> 
             
-              <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
+              {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
                 <View>
                   <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Trip Fare</Text>
                   <Text>GHC 129.00</Text>
@@ -252,7 +260,7 @@ const Trips = () => {
                   <Text>wdwd</Text>
                 </View>
                 
-              </View>
+              </View> */}
             
             </ScrollView>}
           </View>
@@ -315,5 +323,16 @@ const styles = StyleSheet.create({
     height: 2,
     width:150,
     backgroundColor: '#efefef',
+  },
+  details_header: {
+    fontSize: 20,
+    fontWeight: 600,
+    color: '#888',
+    marginBottom: 5,
+  },
+  details_sub_text: {
+    fontSize: 16,
+    fontWeight: 500,
+    color: '#222',
   }
 })
