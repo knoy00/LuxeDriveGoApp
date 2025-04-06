@@ -246,22 +246,31 @@ const Trips = () => {
                 
               </View> 
             
-              {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 10, borderRadius: 20}}>
-                <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Trip Fare</Text>
-                  <Text>GHC 129.00</Text>
+              <View style={{ marginTop: 20, padding: 15}}>
+                <View style={{height: 150, width: '100%', backgroundColor: '#111', borderRadius: 20, paddingHorizontal: 20}}>
+                  <Text style={{fontSize: 16, fontWeight: '600', color: '#fff', marginTop: 10, textAlign: 'left'}}>University of Ghana</Text>
+                  <Text style={{fontSize: 16, fontWeight: '400', color: '#888', marginTop: 0, textAlign: 'left'}}>Accra, Ghana</Text>
+
+                  <View style={{width: '100%', backgroundColor: '#fff', height: 4, marginTop: 30}}>
+                    <View style={{width: '30%', height: '100%', backgroundColor: '#e82b31'}}>
+                      <View style={{position: 'absolute', width: 50, height: 40, top: -18, left: 70}}>
+                        <Image source={require('../../assets/icons/driver.png')} style={{width: '100%', height: '100%', resizeMode: 'contain', transform: 'rotate(-180deg)'}}/>
+                      </View>
+                    </View>
+                  </View>
+
+                  <Text style={{fontSize: 16, fontWeight: '600', color: '#fff', marginTop: 30, textAlign: 'right'}}>PinkBerry</Text>
+                  <Text style={{fontSize: 16, fontWeight: '400', color: '#888', marginTop: 0, textAlign: 'right'}}>East Legon</Text>
+
                 </View>
-                <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Duration</Text>
-                  <Text>00:48:23</Text>
-                </View>
-                <View>
-                  <Text style={{fontSize: 18, fontWeight: '600', color: '#222'}}>Rating</Text>
-                  <Text>wdwd</Text>
-                </View>
-                
-              </View> */}
-            
+              </View>
+
+              <View style={{justifyContent: 'center', marginTop: 20, marginHorizontal: 20, borderWidth: 1, borderColor: '#ddd', alignItems:'center', padding: 10, borderRadius: 20}}>
+                <Pressable>
+                  <Text>End Ride</Text>
+                </Pressable>
+              </View>
+
             </ScrollView>}
           </View>
 
