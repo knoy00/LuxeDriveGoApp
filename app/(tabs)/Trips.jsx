@@ -35,7 +35,7 @@ const Trips = () => {
             <Text style={{fontSize: 22, fontWeight: 500, color: '#333', marginTop: 20}}>You currently have no ride history</Text>
           </View>
         ) : (
-          <View>
+          <View style={{flex: 1}}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <View style={{padding: 10, marginTop: 20, borderRadius: 70, width: '90%', borderWidth: 2, borderColor: '#111'}}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -54,9 +54,8 @@ const Trips = () => {
                   
                 </View>
               </View>
-              
             </View>
-
+            
             {activeTab === "complete" && <ScrollView style={{flexGrow: 1, marginTop: 30, height: '100%'}} bounces={true}>
               
 
@@ -164,7 +163,7 @@ const Trips = () => {
               
             </ScrollView>}
 
-            {activeTab === 'active' && <ScrollView style={{flexGrow:1, height: '100%', marginTop: 30}}>
+            {activeTab === 'active' && <ScrollView contentContainerStyle={{flexGrow:1, paddingBottom: 30}} style={{flex: 1, marginTop: 30}} contentInsetAdjustmentBehavior="automatic">
             <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginHorizontal: 20, borderWidth: 1.5, borderColor: '#ddd', padding: 10, borderRadius: 20}}>
                 <View style={{flexDirection: 'column', alignItems: 'center', gap: 15}}>
                   <MapPin size={20} color={'red'} />
@@ -265,9 +264,9 @@ const Trips = () => {
                 </View>
               </View>
 
-              <View style={{justifyContent: 'center', marginTop: 20, marginHorizontal: 20, borderWidth: 1, borderColor: '#ddd', alignItems:'center', padding: 10, borderRadius: 20}}>
+              <View style={{justifyContent: 'center', marginTop: 20, marginHorizontal: 20, alignItems:'center', padding: 20, borderRadius: 10, backgroundColor: '#f50000'}}>
                 <Pressable>
-                  <Text>End Ride</Text>
+                  <Text style={{fontSize: 18, fontWeight: '600', color: '#fff'}}>End Ride</Text>
                 </Pressable>
               </View>
 
