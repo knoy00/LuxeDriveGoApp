@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView, StatusBar, Dimensions, Pressable, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
 import {loginUser, auth} from '../app/Utils/Firebase/Auth'
@@ -63,6 +63,8 @@ function SignIn({}) {
   
     try {
       const response = await loginUser(email, password);
+      Keyboard.dismiss()
+      
   
       setDisplayMessage(true);
       setShowMessage("Login successful");
@@ -73,7 +75,7 @@ function SignIn({}) {
         setShowMessage('');
         setIsSignedIn(true);
         router.replace('(tabs)');
-      }, 2000);
+      }, 1000);
     } catch (error) {
       // let errorMessage = "An error occurred";
       // if(error.code === 'auth/invalid-email' || error.code === 'auth/wrong-password') {
